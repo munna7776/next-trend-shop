@@ -43,7 +43,7 @@ const Header = () => {
           </span>
         </Link>
       </div>
-      <nav className="hidden md:flex gap-[10px]">
+      <nav className="hidden md:flex gap-[30px]">
         <Link href="/">Home</Link>
         <Link href="/">Shop</Link>
         <Link href="/">Collections</Link>
