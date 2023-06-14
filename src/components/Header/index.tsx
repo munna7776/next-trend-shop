@@ -7,7 +7,7 @@ import React, { useState } from "react";
 const Header = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   return (
-    <header className="w-full py-4 pr-2 pl-4 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] sticky top-0 flex justify-between items-center bg-white">
+    <header className="w-full py-4 pr-2 pl-4 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] sticky top-0 z-[100] flex justify-between items-center bg-white">
       <div className="flex gap-2">
         <button
           className="inline-block md:hidden"
@@ -92,9 +92,9 @@ const Header = () => {
 
 const MobileNav = ({onClick}: {onClick: () => void;}) => {
   return (
-    <div className="block md:hidden">
-        <div onClick={onClick} className="absolute left-0 top-0 overflow-hidden w-full h-screen z-[999] bg-[#0003] backdrop-blur-[10px]" />
-        <nav className={`fixed top-0 left-0 z-[9999] rounded-r-lg p-[30px] w-full max-w-[300px] bg-[#fbf9f9] h-screen overflow-hidden mobile-nav `} >
+    <>
+        <div onClick={onClick} className="absolute left-0 top-0 overflow-hidden w-screen h-screen z-[9999] bg-[#0003] backdrop-blur-[10px]" />
+        <div className={`fixed top-0 left-0 z-[9999] rounded-r-lg p-[30px] w-full max-w-[300px] bg-[#fbf9f9] h-screen overflow-hidden mobile-nav `} >
           <button className="mb-10" onClick={onClick} >
             <svg
               className="opacity-20"
@@ -124,8 +124,8 @@ const MobileNav = ({onClick}: {onClick: () => void;}) => {
               <Link className="text-[18px] uppercase font-semibold opacity-70" href="/">Contact</Link>
             </li>
           </ul>
-        </nav>
-      </div>
+        </div>
+      </>
   )
 }
 

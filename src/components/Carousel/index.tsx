@@ -19,7 +19,7 @@ const Carousel = () => {
     }
   };
   return (
-    <section className="relative overflow-hidden h-[300px] sm:h-[400px]">
+    <section className="relative overflow-hidden h-[400px]">
       <button
         onClick={handleNextSlide}
         className={`absolute right-5 top-2/4 -translate-y-2/4 z-10 ${ activeIndex === 2 ? "hidden" : "" }`}
