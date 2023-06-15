@@ -36,8 +36,6 @@ export const shopifyFetch = async<T,U>({
             ...(tags && { next: { tags }})
         })
 
-        console.log(res.status)
-
         const result = await res.json()
 
         if(result.errors) {
