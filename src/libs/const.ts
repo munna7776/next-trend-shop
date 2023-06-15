@@ -1,0 +1,1 @@
+export const SHOPIFY_GRAPHQL_ENDPOINT = "/api/2023-04/graphql.json";
