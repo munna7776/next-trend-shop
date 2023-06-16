@@ -1,6 +1,6 @@
 import { SHOPIFY_GRAPHQL_ENDPOINT } from "../const";
-import { getCollectionsQuery } from "./queries/collection";
-import { Connection, ShopifyCollection, ShopifyCollectionsReturnType, ShopifyCollectionsVariables } from "./type";
+import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
+import { Connection, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables } from "./type";
 
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN!
@@ -69,5 +69,24 @@ export const getCollections = async(variables: ShopifyCollectionsVariables) => {
     return {
         collections,
         pageInfo
+    }
+}
+
+export const getCollectionProducts = async (variables: ShopifyCollectionsVariables & { handle: string }) => {
+    const res = await shopifyFetch<ShopifyCollectionProductReturnType, ShopifyCollectionsVariables & { handle: string }>({
+        query: getCollectionProductsQuery,
+        variables: variables
+    })
+
+    const {title, description, image, products} = res?.data?.collection
+    const reshapedProducts = removeEdgesAndNodes(products) as ShopifyCollectionProduct[]
+    const collectionProductPageInfo = products.pageInfo
+
+    return {
+        title,
+        description,
+        collectionImage: image,
+        products: reshapedProducts,
+        pageInfo: collectionProductPageInfo
     }
 }

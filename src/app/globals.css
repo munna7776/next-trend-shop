@@ -31,3 +31,22 @@
 .mobile-nav {
   animation: open-nav 0.3s linear;
 }
+
+.object-position {
+  object-position: center center;
+}
+
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.product-grid {
+  grid-template-columns: repeat(3, 325px);
+}
+
+@media (max-width: 1280px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
+    margin: 20px 32px;
+  }
+}

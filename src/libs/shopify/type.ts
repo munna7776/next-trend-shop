@@ -34,7 +34,6 @@ export type MediaContentType = "VIDEO" | "IMAGE" | "EXTERNAL_VIDEO" | "MODEL_3D"
 export type ShopifyCollection = {
     description: string;
     image: Image;
-    // productsCount: number;
     handle: string;
     seo: SEO;
     title: string;
@@ -44,6 +43,33 @@ export type ShopifyCollection = {
 export type ShopifyCollectionsVariables = {
     first: number;
     after?: string;
+}
+
+export type ShopifyCollectionProduct = {
+    id: string;
+    title: string;
+    handle: string;
+    priceRange: {
+        maxVariantPrice: {
+            amount: number;
+        };
+        minVariantPrice: {
+            amount: number;
+        };
+    };
+    featuredImage: Image
+    images: Connection<Image>
+}
+
+export type ShopifyCollectionProductReturnType = {
+    data: {
+        collection: {
+            title: string;
+            description: string;
+            image: Image;
+            products: Connection<ShopifyCollectionProduct>
+        }
+    }
 }
 
 export type ShopifyCollectionsReturnType = {

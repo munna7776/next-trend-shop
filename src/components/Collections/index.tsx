@@ -25,7 +25,7 @@ const Collections = ({collections}:{
               />
               <Link
                 className="row-start-1 row-end-2 col-start-1 col-end-2 bg-white text-gray-900 rounded-xl px-10 py-1 text-lg self-end mx-auto mb-[20px] shadow-[0px_3px_8px_rgba(0,0,0,0.24)]"
-                href="/"
+                href={`/collections/${collection.handle}`}
               >
                 {collection.title}
               </Link>
