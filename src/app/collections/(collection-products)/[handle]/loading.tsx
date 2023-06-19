@@ -12,7 +12,7 @@ const Loading = () => {
           className="w-[40%] rounded-lg h-[300px] bg-slate-200"
         ></div>
       </div>
-      <ul className="animate-pulse mt-2 mb-6 grid gap-6 justify-center" style={{gridTemplateColumns: 'repeat(3, 325px)'}} >
+      <ul className="animate-pulse mt-2 mb-6 grid gap-6 justify-center product-grid" >
         {[...new Array(10)].map((_, index) => (
           <ProductSkeleton key={index} />
         ))}

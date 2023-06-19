@@ -45,7 +45,7 @@ const Header = () => {
       </div>
       <nav className="hidden md:flex gap-[30px]">
         <Link href="/">Home</Link>
-        <Link href="/">Shop</Link>
+        <Link href="/products/all">Shop</Link>
         <Link href="/collections/all">Collections</Link>
         <Link href="/">Contact</Link>
       </nav>
@@ -112,16 +112,16 @@ const MobileNav = ({onClick}: {onClick: () => void;}) => {
           </button>
           <ul className="flex flex-col gap-[10px] text-[#3c3c3c]" >
             <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/">Home</Link>
+              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/" onClick={onClick}>Home</Link>
             </li>
             <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/">Shop</Link>
+              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/products/all" onClick={onClick}>Shop</Link>
             </li>
             <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/collections/all">Collections</Link>
+              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/collections/all" onClick={onClick}>Collections</Link>
             </li>
             <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/">Contact</Link>
+              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/" onClick={onClick}>Contact</Link>
             </li>
           </ul>
         </div>

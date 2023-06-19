@@ -7,11 +7,11 @@ const quickLinks: { link: string; title: string }[] = [
     title: "About Us",
   },
   {
-    link: "/",
+    link: "/collections/all",
     title: "Collections",
   },
   {
-    link: "/",
+    link: "/products/all",
     title: "Shop",
   },
   {

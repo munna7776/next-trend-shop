@@ -97,7 +97,8 @@ export const getCollectionProducts = async (variables: ShopifyCollectionsVariabl
 export const getAllProducts = async(variables: ShopifyCollectionsVariables) => {
     const res = await shopifyFetch<ShopifyAllProductsReturnType, ShopifyCollectionsVariables>({
         query: getAllProductsQuery,
-        variables
+        variables,
+        cache: "no-store"
     })
 
     const products = removeEdgesAndNodes(res?.data?.products) as ShopifyCollectionProduct[]

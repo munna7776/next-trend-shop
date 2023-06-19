@@ -40,7 +40,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.product-grid {
+.product-grid, .skeleton-grid {
   grid-template-columns: repeat(3, 325px);
 }
 
@@ -48,5 +48,8 @@
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
     margin: 20px 32px;
+  }
+  .skeleton-grid {
+    grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
   }
 }
