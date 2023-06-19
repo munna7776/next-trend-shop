@@ -1,6 +1,7 @@
 import { SHOPIFY_GRAPHQL_ENDPOINT } from "../const";
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
-import { Connection, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables } from "./type";
+import { getAllProductsQuery } from "./queries/product";
+import { Connection, ShopifyAllProductsReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables } from "./type";
 
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN!
@@ -60,7 +61,8 @@ const removeEdgesAndNodes = (array: Connection<any>) => {
 export const getCollections = async(variables: ShopifyCollectionsVariables) => {
     const res = await shopifyFetch<ShopifyCollectionsReturnType,ShopifyCollectionsVariables>({
         query: getCollectionsQuery,
-        variables: variables
+        variables: variables,
+        cache: "no-store"
     })
 
     const collections = removeEdgesAndNodes(res?.data?.collections) as ShopifyCollection[]
@@ -75,7 +77,8 @@ export const getCollections = async(variables: ShopifyCollectionsVariables) => {
 export const getCollectionProducts = async (variables: ShopifyCollectionsVariables & { handle: string }) => {
     const res = await shopifyFetch<ShopifyCollectionProductReturnType, ShopifyCollectionsVariables & { handle: string }>({
         query: getCollectionProductsQuery,
-        variables: variables
+        variables: variables,
+        cache: "no-store"
     })
 
     const {title, description, image, products} = res?.data?.collection
@@ -88,5 +91,19 @@ export const getCollectionProducts = async (variables: ShopifyCollectionsVariabl
         collectionImage: image,
         products: reshapedProducts,
         pageInfo: collectionProductPageInfo
+    }
+}
+
+export const getAllProducts = async(variables: ShopifyCollectionsVariables) => {
+    const res = await shopifyFetch<ShopifyAllProductsReturnType, ShopifyCollectionsVariables>({
+        query: getAllProductsQuery,
+        variables
+    })
+
+    const products = removeEdgesAndNodes(res?.data?.products) as ShopifyCollectionProduct[]
+
+    return {
+        products,
+        pageInfo: res?.data?.products?.pageInfo
     }
 }

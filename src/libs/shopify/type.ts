@@ -78,6 +78,12 @@ export type ShopifyCollectionsReturnType = {
     }
 }
 
+export type ShopifyAllProductsReturnType = {
+    data: {
+        products: Connection<ShopifyCollectionProduct>
+    }
+}
+
 // const collections: ShopifyCollectionsReturnType = {
 //     data: {
 //         collections: {

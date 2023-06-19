@@ -46,7 +46,7 @@ const Header = () => {
       <nav className="hidden md:flex gap-[30px]">
         <Link href="/">Home</Link>
         <Link href="/">Shop</Link>
-        <Link href="/">Collections</Link>
+        <Link href="/collections/all">Collections</Link>
         <Link href="/">Contact</Link>
       </nav>
       <div className="flex items-center gap-1">
@@ -118,7 +118,7 @@ const MobileNav = ({onClick}: {onClick: () => void;}) => {
               <Link className="text-[18px] uppercase font-semibold opacity-70" href="/">Shop</Link>
             </li>
             <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/">Collections</Link>
+              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/collections/all">Collections</Link>
             </li>
             <li>
               <Link className="text-[18px] uppercase font-semibold opacity-70" href="/">Contact</Link>

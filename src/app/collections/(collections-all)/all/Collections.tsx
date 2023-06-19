@@ -1,20 +1,23 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
-import { PageInfo, ShopifyCollection } from "@/libs/shopify/type";
 import Image from "next/image";
+import Link from "next/link";
+import { PageInfo, ShopifyCollection } from "@/libs/shopify/type";
+import { useState } from "react";
 
-const Collections = ({collections}:{
-  collections: ShopifyCollection[];
-  pageInfo: PageInfo;
+const Collections = ({collections,pageInfo}: {
+    collections: ShopifyCollection[];
+    pageInfo: PageInfo;
 }) => {
 
+  const [collectionsState, setCollectionsState] = useState<ShopifyCollection[]>(collections)
+
   return (
+    <section>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-4">
-        {collections.map((collection, index) => {
+        {collectionsState.map((collection, index) => {
           return (
-            <li key={index} className="grid h-[350px] rounded-lg overflow-hidden">
+            <li key={index} className="grid h-[350px] overflow-hidden rounded-lg">
               <Image
                 src={collection.image.url}
                 alt={collection.image.altText}
@@ -33,7 +36,8 @@ const Collections = ({collections}:{
           );
         })}
       </ul>
-  );
-};
+    </section>
+  )
+}
 
-export default Collections;
+export default Collections
