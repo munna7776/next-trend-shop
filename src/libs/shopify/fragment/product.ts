@@ -1,4 +1,5 @@
 import { imageFragment } from "./image";
+import { priceFragment } from "./price";
 
 export const miniProductFragment = `
 fragment product on Product {
@@ -7,10 +8,10 @@ fragment product on Product {
     handle
     priceRange {
       maxVariantPrice {
-        amount
+        ...price
       }
       minVariantPrice {
-        amount
+        ...price
       }
     }
     featuredImage {
@@ -25,4 +26,5 @@ fragment product on Product {
     }
   }
   ${imageFragment}
+  ${priceFragment}
 `;

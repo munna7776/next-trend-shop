@@ -44,6 +44,28 @@
   grid-template-columns: repeat(3, 325px);
 }
 
+.images-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.featured-image {
+  grid-column: span 2;
+}
+
+/* @media (max-width: 991px) {
+  .featured-image {
+    grid-column: span 1;
+  }
+} */
+
+@media(max-width: 768px) {
+  .images-grid {
+    display: none;
+  }
+}
+
 @media (max-width: 1280px) {
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));

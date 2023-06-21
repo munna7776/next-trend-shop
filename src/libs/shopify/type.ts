@@ -29,6 +29,16 @@ export type SEO = {
     description: string;
 }
 
+export type Price = {
+    amount: number;
+    currencyCode: string;
+}
+
+export type PriceRange = {
+    minVariantPrice: Price;
+    maxVariantPrice: Price;
+}
+
 export type MediaContentType = "VIDEO" | "IMAGE" | "EXTERNAL_VIDEO" | "MODEL_3D";
 
 export type ShopifyCollection = {
@@ -49,16 +59,35 @@ export type ShopifyCollectionProduct = {
     id: string;
     title: string;
     handle: string;
-    priceRange: {
-        maxVariantPrice: {
-            amount: number;
-        };
-        minVariantPrice: {
-            amount: number;
-        };
-    };
-    featuredImage: Image
-    images: Connection<Image>
+    priceRange: PriceRange;
+    featuredImage: Image;
+    images: Connection<Image>;
+}
+
+export type ShopifyProductVariant = {
+    id: string;
+    title: string;
+    image: Image;
+    price: Price;
+    quantityAvailable: number;
+    selectedOptions: {name: string; value: string}[];
+    sku: string;
+}
+
+export type ShopifyProduct = {
+    title: string;
+    description: string;
+    handle: string;
+    featuredImage: Image;
+    id: string;
+    images: Connection<Image>;
+    isGiftCard: boolean;
+    options: {name: string;values:string}[];
+    priceRange: PriceRange;
+    seo: SEO;
+    tags: string[];
+    totalInventory: number;
+    variants: Connection<ShopifyProductVariant>
 }
 
 export type ShopifyCollectionProductReturnType = {
@@ -81,6 +110,12 @@ export type ShopifyCollectionsReturnType = {
 export type ShopifyAllProductsReturnType = {
     data: {
         products: Connection<ShopifyCollectionProduct>
+    }
+}
+
+export type ShopifyProductReturnType = {
+    data: {
+        product: ShopifyProduct
     }
 }
 
