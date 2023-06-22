@@ -7,7 +7,6 @@ import {
   SEO,
   ShopifyProductVariant,
 } from "@/libs/shopify/type";
-import { moneyFormatter } from "@/libs/utils";
 
 type Product = {
   product: {
@@ -18,7 +17,7 @@ type Product = {
     id: string;
     images: Image[];
     isGiftCard: boolean;
-    options: { name: string; values: string }[];
+    options: { name: string; values: string[] }[];
     priceRange: PriceRange;
     seo: SEO;
     tags: string[];
@@ -26,24 +25,29 @@ type Product = {
     variants: ShopifyProductVariant[];
   };
   renderProductImages: React.ReactNode;
+  renderProductVariants: React.ReactNode;
 };
 
-const Product = ({ product, renderProductImages }: Product) => {
-  const price = moneyFormatter(
-    product.priceRange.minVariantPrice.currencyCode,
-    product.priceRange.minVariantPrice.amount
-  );
+const Product = ({
+  product,
+  renderProductImages,
+  renderProductVariants,
+}: Product) => {
   return (
     <section className="flex flex-col md:flex-row gap-x-2.5 pb-5 md:pt-5 md:px-6">
-      <div className="sticky z-[2] w-full md:w-1/2">{renderProductImages}</div>
-      <div className="sticky z-[2] pt-5 px-6 w-full md:w-auto">
-        <h1 className="text-xl text-[#212323] font-bold pb-3 border-b border-[#9e9eb3]">
-          {product.title}
-        </h1>
-        <p className="mt-6 text-xl text-[#212323] font-semibold">{price}</p>
-        <p className="text-[15px] text-[#4d4f4f] mb-6 ">
-          Free Shipping, Return within 7 days
-        </p>
+      <div className="left md:w-1/2">
+        <div className="sticky top-0 z-[2]">{renderProductImages}</div>
+      </div>
+      <div className="right md:w-1/2 md:pl-6">
+        <div className="sticky top-0 z-[2] pt-5 px-6">
+          <h1 className="text-xl text-[#212323] font-bold pb-3 border-b border-[#9e9eb3]">
+            {product.title}
+          </h1>
+          {renderProductVariants}
+          <p className="text-xl text-[#4d4f4f] w-full sm:w-3/4 md:w-full">
+            {product.description}
+          </p>
+        </div>
       </div>
     </section>
   );

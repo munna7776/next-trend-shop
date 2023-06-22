@@ -36,6 +36,11 @@
   object-position: center center;
 }
 
+input[type="checkbox"]:checked + label {
+  background-color: #000;
+  color: #fff;
+}
+
 .box-shadow {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

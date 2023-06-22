@@ -82,7 +82,7 @@ export type ShopifyProduct = {
     id: string;
     images: Connection<Image>;
     isGiftCard: boolean;
-    options: {name: string;values:string}[];
+    options: {name: string;values:string[]}[];
     priceRange: PriceRange;
     seo: SEO;
     tags: string[];
