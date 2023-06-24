@@ -90,20 +90,58 @@ export type ShopifyProduct = {
     variants: Connection<ShopifyProductVariant>
 }
 
+export type Product = Omit<ShopifyProduct, "variants"| "images"> & {
+    images: Image[];
+    variants: ShopifyProductVariant[]
+}
+
+
+export type CartItemLine = {
+    id: string;
+    cost: {
+        totalAmount: Price;
+    };
+    merchandise: {
+        id: string;
+        title: string;
+        selectedOptions: {
+            name: string;
+            value: string;
+        };
+        product: Product
+    }
+}
+
+export type ShopifyCart = {
+    id: string;
+    checkoutUrl: string;
+    cost: {
+        subTotalAmount: Price;
+        totalAmount: Price;
+        totalTaxAmunt: Price;
+    };
+    lines: Connection<CartItemLine>;
+    totalQuantity: number;
+}
+
+export type Cart = Omit<ShopifyCart,"lines"> & {
+    lines: CartItemLine[]
+}
+
 export type ShopifyCollectionProductReturnType = {
     data: {
         collection: {
             title: string;
             description: string;
             image: Image;
-            products: Connection<ShopifyCollectionProduct>
+            products: Connection<ShopifyCollectionProduct>;
         }
     }
 }
 
 export type ShopifyCollectionsReturnType = {
     data: {
-        collections: Connection<ShopifyCollection>
+        collections: Connection<ShopifyCollection>;
     }
 }
 
@@ -116,6 +154,20 @@ export type ShopifyAllProductsReturnType = {
 export type ShopifyProductReturnType = {
     data: {
         product: ShopifyProduct
+    }
+}
+
+export type ShopifyCartCreateReturnType = {
+    data: {
+        cartCreate: {
+            cart: ShopifyCart
+        }
+    }
+}
+
+export type ShopifyGetCartReturnType = {
+    data: {
+        cart: ShopifyCart
     }
 }
 

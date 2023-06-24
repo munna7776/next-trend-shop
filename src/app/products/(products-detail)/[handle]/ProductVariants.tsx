@@ -32,7 +32,7 @@ const ProductVariants = ({
   const selectedVariants = variants.find(variant => variant.title === title)!
   const selectedVariantPrice = moneyFormatter(selectedVariants?.price.currencyCode,selectedVariants?.price.amount)
   const has_only_default_variant = options[0].name === "Title";
-
+  
   return (
     <>
        <p className="mt-6 text-xl text-[#212323] font-semibold">{selectedVariantPrice}</p>

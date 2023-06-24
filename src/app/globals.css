@@ -28,8 +28,20 @@
   }
 }
 
+@keyframes cart {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .mobile-nav {
   animation: open-nav 0.3s linear;
+}
+.cart-drawer {
+  animation: cart 0.3s linear;
 }
 
 .object-position {

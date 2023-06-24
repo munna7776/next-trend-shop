@@ -1,35 +1,15 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState } from "react";
+import MobileMenu from "./mobile-menu";
+import { Suspense } from "react";
+import Cart from "./cart";
+import CartIcon from "./cart/cart-icon";
 
 const Header = () => {
-  const [showSidebar, setShowSidebar] = useState<boolean>(false);
   return (
-    <header className="w-full py-4 pr-2 pl-4 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] sticky top-0 z-[100] flex justify-between items-center bg-white">
+    <header className="w-full p-4 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] sticky top-0 z-[100] flex justify-between items-center bg-white">
       <div className="flex gap-2">
-        <button
-          className="inline-block md:hidden"
-          onClick={() => setShowSidebar(true)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="lucide lucide-align-center"
-          >
-            <line x1="21" y1="6" x2="3" y2="6"></line>
-            <line x1="17" y1="12" x2="7" y2="12"></line>
-            <line x1="19" y1="18" x2="5" y2="18"></line>
-          </svg>
-        </button>
+        <MobileMenu />
         <Link href="/">
           <Image
             src="/next-shop-logo.png"
@@ -49,7 +29,7 @@ const Header = () => {
         <Link href="/collections/all">Collections</Link>
         <Link href="/">Contact</Link>
       </nav>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-3">
         <Link href="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,66 +47,13 @@ const Header = () => {
               ></path>
           </svg>
         </Link>
-        <Link href="/">
-          <svg
-            className="h-[44px] w-[44px]"
-            aria-hidden="true"
-            focusable="false"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 40 40"
-            fill="none"
-            >
-            <path
-              d="m15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33l-.78-11.61zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1 -9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"
-              fill="currentColor"
-              fillRule="evenodd"
-              ></path>
-          </svg>
-        </Link>
+        <Suspense fallback={<CartIcon />} >
+          <Cart />
+        </Suspense>
       </div>
-      { showSidebar && <MobileNav onClick={() => setShowSidebar(false)}  /> }
     </header>
   );
 };
 
-
-const MobileNav = ({onClick}: {onClick: () => void;}) => {
-  return (
-    <>
-        <div onClick={onClick} className="absolute left-0 top-0 overflow-hidden w-screen h-screen z-[9999] bg-[#0003] backdrop-blur-[10px]" />
-        <div className={`fixed top-0 left-0 z-[9999] rounded-r-lg p-[30px] w-full max-w-[300px] bg-[#fbf9f9] h-screen overflow-hidden mobile-nav `} >
-          <button className="mb-10" onClick={onClick} >
-            <svg
-              className="opacity-20"
-              width="24"
-              height="24"
-              viewBox="0 0 28 28"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.4355 17.8051L4.32667 27.914L0.957051 24.5444L11.0659 14.4355L0.957051 4.32664L4.32667 0.957016L14.4355 11.0659L24.5444 0.957016L27.914 4.32664L17.8052 14.4355L27.914 24.5444L24.5444 27.914L14.4355 17.8051Z"
-                fill="#221820"
-              ></path>
-            </svg>
-          </button>
-          <ul className="flex flex-col gap-[10px] text-[#3c3c3c]" >
-            <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/" onClick={onClick}>Home</Link>
-            </li>
-            <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/products/all" onClick={onClick}>Shop</Link>
-            </li>
-            <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/collections/all" onClick={onClick}>Collections</Link>
-            </li>
-            <li>
-              <Link className="text-[18px] uppercase font-semibold opacity-70" href="/" onClick={onClick}>Contact</Link>
-            </li>
-          </ul>
-        </div>
-      </>
-  )
-}
 
 export default Header;

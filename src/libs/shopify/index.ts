@@ -1,14 +1,16 @@
 import { SHOPIFY_GRAPHQL_ENDPOINT } from "../const";
+import { cartCreateMutation } from "./mutation/cart";
+import { getCartQuery } from "./queries/cart";
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getAllProductsQuery, getProductDetailsQuery } from "./queries/product";
-import { Connection, Image, ShopifyAllProductsReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyProductReturnType, ShopifyProductVariant } from "./type";
+import { CartItemLine, Connection, Image, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant } from "./type";
 
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN!
 const url = `${domain}${SHOPIFY_GRAPHQL_ENDPOINT}`
 const key = process.env.SHOPIFY_STOREFRONT_PUBLIC_ACCESS_TOKEN!
 
-export const shopifyFetch = async<T,U>({
+export const shopifyFetch = async<T,U extends unknown>({
     cache="force-cache",
     headers,
     tags,
@@ -19,7 +21,7 @@ export const shopifyFetch = async<T,U>({
     headers?: HeadersInit;
     tags?: string[];
     query: string;
-    variables: U
+    variables?: U
 }): Promise<T> => {
     try {
         const res = await fetch(url, {
@@ -121,5 +123,33 @@ export const getProductDetails = async(handle: string) => {
         ...res?.data?.product,
         images,
         variants
+    }
+}
+
+export const cartCreate = async() => {
+    const res = await shopifyFetch<ShopifyCartCreateReturnType, unknown>({
+        query: cartCreateMutation
+    })
+
+    const {cart} = res?.data?.cartCreate
+    const lines = removeEdgesAndNodes(cart.lines) as CartItemLine[]
+
+    return {
+        ...cart,
+        lines
+    }
+}
+
+export const getCart = async(cartId: string) => {
+    const res = await shopifyFetch<ShopifyGetCartReturnType, {cartId: string}>({
+        query: getCartQuery,
+        variables: {cartId}
+    })
+
+    const lines = removeEdgesAndNodes(res?.data?.cart?.lines) as CartItemLine[]
+
+    return {
+        ...res?.data?.cart,
+        lines
     }
 }

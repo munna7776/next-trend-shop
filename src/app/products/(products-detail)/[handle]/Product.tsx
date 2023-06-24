@@ -1,29 +1,10 @@
 "use client";
 
 import React from "react";
-import {
-  Image,
-  PriceRange,
-  SEO,
-  ShopifyProductVariant,
-} from "@/libs/shopify/type";
+import { Product } from "@/libs/shopify/type";
 
-type Product = {
-  product: {
-    title: string;
-    description: string;
-    handle: string;
-    featuredImage: Image;
-    id: string;
-    images: Image[];
-    isGiftCard: boolean;
-    options: { name: string; values: string[] }[];
-    priceRange: PriceRange;
-    seo: SEO;
-    tags: string[];
-    totalInventory: number;
-    variants: ShopifyProductVariant[];
-  };
+type ProductProps = {
+  product: Product
   renderProductImages: React.ReactNode;
   renderProductVariants: React.ReactNode;
 };
@@ -32,7 +13,7 @@ const Product = ({
   product,
   renderProductImages,
   renderProductVariants,
-}: Product) => {
+}: ProductProps) => {
   return (
     <section className="flex flex-col md:flex-row gap-x-2.5 pb-5 md:pt-5 md:px-6">
       <div className="left md:w-1/2">
