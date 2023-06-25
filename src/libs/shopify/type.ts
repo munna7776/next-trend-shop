@@ -171,6 +171,45 @@ export type ShopifyGetCartReturnType = {
     }
 }
 
+export type ShopifyAddToCartVariables = {
+    cartId: string;
+    lines: {merchandiseId:string; quantity: number}[];
+}
+
+export type ShopifyAddToCartReturnType = {
+    data: {
+        cartLinesAdd: {
+            cart: ShopifyCart
+        }
+    }
+}
+
+export type ShopifyUpdateCartVariables = {
+    cartId: string;
+    lines: {
+        id: string;
+        merchandiseId:string; 
+        quantity: number
+    }[]
+}
+
+
+export type ShopifyUpdateCartReturnType = {
+    data: {
+        cartLinesUpdate: {
+            cart: ShopifyCart
+        }
+    }
+}
+
+export type ShopifyCartLinesRemoveReturnType = {
+    data: {
+        cartLinesRemove: {
+            cart: ShopifyCart
+        }
+    }
+}
+
 // const collections: ShopifyCollectionsReturnType = {
 //     data: {
 //         collections: {

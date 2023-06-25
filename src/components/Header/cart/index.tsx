@@ -1,7 +1,7 @@
 import { cartCreate, getCart } from "@/libs/shopify";
 import { Cart } from "@/libs/shopify/type";
 import { cookies } from "next/headers"
-import CartButton from "./cart-drawer";
+import CartButton from "./cart-button";
 
 export default async function Cart() {
     const cartId = cookies().get("cartId")?.value;
@@ -10,6 +10,7 @@ export default async function Cart() {
 
     if(cartId) {
         cart = await getCart(cartId)
+        // console.log("cart ", cart.totalQuantity)
     }
 
     if(!cartId || !cart) {

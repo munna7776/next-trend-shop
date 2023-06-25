@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import MobileMenu from "./mobile-menu";
 import { Suspense } from "react";
+import MobileMenu from "./mobile-menu";
 import Cart from "./cart";
-import CartIcon from "./cart/cart-icon";
+import { CartIcon } from "@/components/icons";
 
 const Header = () => {
   return (

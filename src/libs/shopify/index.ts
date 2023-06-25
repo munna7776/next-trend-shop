@@ -1,9 +1,9 @@
 import { SHOPIFY_GRAPHQL_ENDPOINT } from "../const";
-import { cartCreateMutation } from "./mutation/cart";
+import { addToCartMutation, cartCreateMutation, cartUpdateMutation } from "./mutation/cart";
 import { getCartQuery } from "./queries/cart";
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getAllProductsQuery, getProductDetailsQuery } from "./queries/product";
-import { CartItemLine, Connection, Image, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant } from "./type";
+import { CartItemLine, Connection, Image, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
 
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN!
@@ -143,13 +143,68 @@ export const cartCreate = async() => {
 export const getCart = async(cartId: string) => {
     const res = await shopifyFetch<ShopifyGetCartReturnType, {cartId: string}>({
         query: getCartQuery,
-        variables: {cartId}
+        variables: {cartId},
+        cache: "no-store"
     })
-
     const lines = removeEdgesAndNodes(res?.data?.cart?.lines) as CartItemLine[]
 
     return {
         ...res?.data?.cart,
         lines
+    }
+}
+
+export const addToCart = async(cartId: string, lines: {merchandiseId:string; quantity: number}[]) => {
+    const res = await shopifyFetch<ShopifyAddToCartReturnType,ShopifyAddToCartVariables>({
+        query: addToCartMutation,
+        variables: {
+            cartId,
+            lines
+        }
+    })
+
+    const cartLines = removeEdgesAndNodes(res?.data?.cartLinesAdd?.cart?.lines) as CartItemLine[]
+
+    return {
+        ...res?.data?.cartLinesAdd?.cart,
+        lines: cartLines
+    }
+}
+
+export const updateCart = async(cartId: string, lines: {
+    id: string;
+    merchandiseId:string; 
+    quantity: number
+}[]) => {
+    const res = await shopifyFetch<ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables>({
+        query: cartUpdateMutation,
+        variables: {
+            cartId,
+            lines
+        }
+    })
+
+    const cartLines = removeEdgesAndNodes(res?.data?.cartLinesUpdate?.cart?.lines) as CartItemLine[]
+
+    return {
+        ...res?.data?.cartLinesUpdate?.cart,
+        lines: cartLines
+    }
+}
+
+export const removeCart = async(cartId: string, lineIds: string[]) => {
+    const res = await shopifyFetch<ShopifyCartLinesRemoveReturnType, {cartId: string,lineIds: string[]}>({
+        query: cartUpdateMutation,
+        variables: {
+            cartId,
+            lineIds
+        }
+    })
+
+    const cartLines = removeEdgesAndNodes(res?.data?.cartLinesRemove?.cart?.lines) as CartItemLine[]
+
+    return {
+        ...res?.data?.cartLinesRemove?.cart,
+        lines: cartLines
     }
 }

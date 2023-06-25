@@ -1,6 +1,6 @@
-import React from "react";
-
-const CartIcon = () => {
+const CartIcon = ({className = ""}: {
+  className?: string
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +11,7 @@ const CartIcon = () => {
       strokeLinecap="round"
       strokeLinejoin="round"
       shapeRendering="geometricPrecision"
-      className="h-5 transition-all ease-in-out hover:scale-110 hover:text-gray-500 dark:hover:text-gray-300"
+      className={`h-5 transition-all ease-in-out hover:scale-110 hover:text-gray-500 dark:hover:text-gray-300 ${className}`}
     >
       <path d="M4 1L1 5V19C1 19.5304 1.21071 20.0391 1.58579 20.4142C1.96086 20.7893 2.46957 21 3 21H17C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19V5L16 1H4Z"></path>
       <path d="M1 5H19"></path>

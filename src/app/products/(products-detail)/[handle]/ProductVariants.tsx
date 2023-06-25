@@ -73,7 +73,7 @@ const ProductVariants = ({
           })}
         </div>
       ) : null}
-      <ProductBuyButton />
+      <ProductBuyButton variantId={selectedVariants.id} />
     </>
   );
 };

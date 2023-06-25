@@ -35,7 +35,7 @@ ${cartFragment}
 
 export const removeFromCartMutation = `
 mutation CartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
-    cartLinesRemove(cartId: $cartId, lineIds: $linsIds) {
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
         cart {
             ...cart
         }
