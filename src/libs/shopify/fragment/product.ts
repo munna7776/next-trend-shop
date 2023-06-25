@@ -43,23 +43,6 @@ fragment product on Product {
     width
   }
   id
-  images(first:10){
-    edges{
-      cursor
-      node{
-        altText
-        height
-        url
-        width
-      }
-    }
-    pageInfo {
-      startCursor
-      hasNextPage
-      hasPreviousPage
-      endCursor
-    }
-  }
   isGiftCard
   options(first:10) {
     name
@@ -81,39 +64,5 @@ fragment product on Product {
   }
   tags
   totalInventory
-  variants(first:20) {
-    edges {
-      cursor
-      node {
-        title
-        id
-        image {
-          altText
-          height
-          url
-          width
-        }
-        price {
-          amount
-          currencyCode
-        }
-        quantityAvailable
-        selectedOptions {
-          name
-          value
-        }
-        unitPrice {
-          amount
-          currencyCode
-        }
-      }
-    }
-    pageInfo {
-      startCursor
-      hasNextPage
-      hasPreviousPage
-      endCursor
-    }
-  }
 }
 `;

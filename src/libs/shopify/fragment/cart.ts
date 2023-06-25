@@ -29,10 +29,21 @@ fragment cart on Cart {
               currencyCode
             }
           }
+          quantity
           merchandise {
             ...on ProductVariant {
               id
               title
+              image {
+                height
+                width
+                url
+                altText
+              }
+              price {
+                amount
+                currencyCode
+              }
               selectedOptions {
                 name
                 value

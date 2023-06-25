@@ -90,10 +90,7 @@ export type ShopifyProduct = {
     variants: Connection<ShopifyProductVariant>
 }
 
-export type Product = Omit<ShopifyProduct, "variants"| "images"> & {
-    images: Image[];
-    variants: ShopifyProductVariant[]
-}
+export type Product = Omit<ShopifyProduct, "variants"| "images">
 
 
 export type CartItemLine = {
@@ -101,13 +98,16 @@ export type CartItemLine = {
     cost: {
         totalAmount: Price;
     };
+    quantity: number;
     merchandise: {
         id: string;
         title: string;
+        image: Image;
+        price: Price;
         selectedOptions: {
             name: string;
             value: string;
-        };
+        }[];
         product: Product
     }
 }

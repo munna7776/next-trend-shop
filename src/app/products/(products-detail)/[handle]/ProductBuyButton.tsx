@@ -4,18 +4,23 @@ import { MinusIcon, PlusIcon } from "@/components/icons";
 
 const ProductBuyButton = ({variantId}: {variantId: string}) => {
   const [quantity, setQuantity] = useState<number>(1)
-  const [_,startTransition] = useTransition()
+  const [loading, setLoading] = useState(false)
+  const [pending,startTransition] = useTransition()
   const router = useRouter()
 
   const handleAddToCart = async() => {
+    setLoading(true)
     const res = await fetch("/api/cart",{
       method: "POST",
       body: JSON.stringify({merchandiseId: variantId,quantity: quantity})
     })
     const data = await res.json()
     
+    setLoading(false)
     startTransition(() => router.refresh())
   }
+
+  const isAddingToCart = loading || pending
   return (
     <>
       <div className="w-full sm:w-3/4 md:w-full my-5 flex items-center justify-between gap-6">
@@ -41,10 +46,11 @@ const ProductBuyButton = ({variantId}: {variantId: string}) => {
       </div>
       <button
         type="button"
-        className="block w-full sm:w-3/4 md:w-full text-xl p-4 rounded-md my-3 border border-black text-black"
+        className="grid place-items-center w-full sm:w-3/4 md:w-full text-xl p-4 rounded-md my-3 border border-black text-black"
         onClick={handleAddToCart}
+        disabled={isAddingToCart}
       >
-        Add to cart
+        { isAddingToCart ? <span className="inline-block h-[28px] w-[28px] border-t-2 border-r-2 border-black rounded-3xl animate-spin"  /> : "Add to cart" }
       </button>
       <button
         type="button"
