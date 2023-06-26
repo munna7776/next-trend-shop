@@ -1,5 +1,5 @@
 import { SHOPIFY_GRAPHQL_ENDPOINT } from "../const";
-import { addToCartMutation, cartCreateMutation, cartUpdateMutation } from "./mutation/cart";
+import { addToCartMutation, cartCreateMutation, cartUpdateMutation, removeFromCartMutation } from "./mutation/cart";
 import { getCartQuery } from "./queries/cart";
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getAllProductsQuery, getProductDetailsQuery } from "./queries/product";
@@ -194,7 +194,7 @@ export const updateCart = async(cartId: string, lines: {
 
 export const removeCart = async(cartId: string, lineIds: string[]) => {
     const res = await shopifyFetch<ShopifyCartLinesRemoveReturnType, {cartId: string,lineIds: string[]}>({
-        query: cartUpdateMutation,
+        query: removeFromCartMutation,
         variables: {
             cartId,
             lineIds

@@ -13,7 +13,6 @@ const CartButton = ({
   cart: Cart;
   cartIdUpdated: boolean;
 }) => {
-  console.log(cart)
   const [showCartDrawer, setShowCartDrawer] = useState<boolean>(false);
   const cartQuantityRef = useRef<number>(cart.totalQuantity);
   const [_,setCookie] = useCookies(["cartId"])

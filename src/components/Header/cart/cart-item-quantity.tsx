@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, useTransition } from "react"
 import { useRouter } from "next/navigation";
-import { MinusIcon, PlusIcon } from "@/components/icons"
+import { toast } from "react-toastify";
+import { DeleteIcon, MinusIcon, PlusIcon } from "@/components/icons"
+import { deleteCartItem } from "./action";
 
 const CartItemQuantity = ({quantity,lineId,merchandiseId}: {
     quantity: number;
@@ -43,18 +45,32 @@ const CartItemQuantity = ({quantity,lineId,merchandiseId}: {
         method: "PUT",
         body: JSON.stringify({lineId,merchandiseId,quantity: quantityInputRef.current.valueAsNumber})
     })
+    console.log(res)
     const data = await res.json()
     setLoading(false)
     startTransition(() => router.refresh())
    }
+
+   const handleDeleteCartItem = () => {
+    startTransition(async() => {
+      const error = await deleteCartItem(lineId)
+
+      if(error) {
+        toast.error(error.message)
+        return;
+      }
+      router.refresh()
+    })
+
+   }
    
-   const isUpdating = loading || pending
+   const isUpdatingOrDeleting = loading || pending
 
   return (
     <div className="flex items-center justify-between gap-2 mt-2">
         <label className="font-medium hidden" >Quantity</label>
         <div className="flex items-center gap-2" >
-          <button disabled={isUpdating} onClick={handleDecreaseQuantity} className="disabled:cursor-not-allowed" >
+          <button disabled={isUpdatingOrDeleting} onClick={handleDecreaseQuantity} className="disabled:cursor-not-allowed" >
             <MinusIcon />
           </button>
           <input
@@ -66,10 +82,13 @@ const CartItemQuantity = ({quantity,lineId,merchandiseId}: {
             className="w-10 text-center bg-transparent focus:outline-none"
             ref={quantityInputRef}
           />
-          <button disabled={isUpdating} onClick={handleIncreaseQuantity} className="disabled:cursor-not-allowed"  >
+          <button disabled={isUpdatingOrDeleting} onClick={handleIncreaseQuantity}  >
             <PlusIcon />
           </button>
-          { isUpdating && <span className="inline-block h-6 w-6 border-t-2 border-r-2 border-black rounded-3xl animate-spin"  /> }
+          <button className="disabled:cursor-not-allowed" disabled={isUpdatingOrDeleting} onClick={handleDeleteCartItem} >
+            <DeleteIcon />
+          </button>
+          { isUpdatingOrDeleting && <span className="inline-block h-6 w-6 border-t-2 border-r-2 border-black rounded-3xl animate-spin"  /> }
         </div>
       </div>
   )

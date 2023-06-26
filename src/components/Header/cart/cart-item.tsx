@@ -43,4 +43,5 @@ const CartItem = ({ line }: { line: CartItemLine }) => {
   );
 };
 
+
 export default CartItem;

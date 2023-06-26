@@ -1,10 +1,12 @@
 import { useRouter } from "next/navigation";
 import React, { useState, useTransition } from "react";
 import { MinusIcon, PlusIcon } from "@/components/icons";
+import { buyNow } from "./action";
 
 const ProductBuyButton = ({variantId}: {variantId: string}) => {
   const [quantity, setQuantity] = useState<number>(1)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [isBuying, setIsBuying] = useState<boolean>(false)
   const [pending,startTransition] = useTransition()
   const router = useRouter()
 
@@ -19,6 +21,13 @@ const ProductBuyButton = ({variantId}: {variantId: string}) => {
     setLoading(false)
     startTransition(() => router.refresh())
   }
+
+  // const handleBuyNow = () => {
+  //   startTransition(async() => {
+  //     const data = await buyNow(variantId,quantity)
+  //     console.log(data)
+  //   })
+  // }
 
   const isAddingToCart = loading || pending
   return (
@@ -52,12 +61,13 @@ const ProductBuyButton = ({variantId}: {variantId: string}) => {
       >
         { isAddingToCart ? <span className="inline-block h-[28px] w-[28px] border-t-2 border-r-2 border-black rounded-3xl animate-spin"  /> : "Add to cart" }
       </button>
-      <button
+      {/* <button
         type="button"
+        onClick={handleBuyNow}
         className="block w-full sm:w-3/4 md:w-full text-xl p-4 rounded-md my-3 bg-black text-white"
       >
         Buy Now
-      </button>
+      </button> */}
     </>
   );
 };

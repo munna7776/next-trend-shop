@@ -19,7 +19,7 @@ const Carousel = () => {
     }
   };
   return (
-    <section className="relative overflow-hidden h-[400px]">
+    <section className="relative overflow-hidden h-[60vh]">
       <button
         onClick={handleNextSlide}
         className={`absolute right-5 top-2/4 -translate-y-2/4 z-10 ${ activeIndex === 2 ? "hidden" : "" }`}
@@ -63,7 +63,7 @@ const Carousel = () => {
             width={1920}
             height={400}
             loading="lazy"
-            className="h-full block md:hidden"
+            className="h-full block w-full md:hidden"
           />
           <Image
             src="/images/trend-4-image.jpg"
@@ -71,7 +71,7 @@ const Carousel = () => {
             width={1920}
             height={400}
             loading="lazy"
-            className="h-full hidden md:block"
+            className="h-full w-full hidden md:block"
           />
           <div className="absolute z-10 left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 flex flex-col gap-y-[10px] items-center text-white">
             <h2 className="text-5xl text-center" >Industrial design meets fashion.</h2>
@@ -86,7 +86,7 @@ const Carousel = () => {
             width={1920}
             height={400}
             loading="lazy"
-            className="h-full"
+            className="h-full w-full"
           />
         </div>
         <div className="basis-full grow-0 shrink-0 relative overlay-shadow">
@@ -96,7 +96,7 @@ const Carousel = () => {
             width={1920}
             height={500}
             loading="lazy"
-            className="h-full"
+            className="h-full w-full"
           />
         </div>
       </div>

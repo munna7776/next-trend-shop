@@ -44,6 +44,10 @@
   animation: cart 0.3s linear;
 }
 
+.cart-item-container {
+  height: calc(100vh - 282px);
+}
+
 .object-position {
   object-position: center center;
 }

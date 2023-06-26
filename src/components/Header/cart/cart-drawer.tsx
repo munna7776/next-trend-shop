@@ -2,8 +2,11 @@ import { CartIcon, CrossIcon } from "@/components/icons";
 import { Cart } from "@/libs/shopify/type";
 
 import CartItem from "./cart-item";
+import { moneyFormatter } from "@/libs/utils";
 
 const CartDrawer = ({ onClick, cart }: { onClick: () => void; cart: Cart }) => {
+  const { totalQuantity, cost: {subtotalAmount,totalAmount,totalTaxAmount} } = cart
+  console.log(subtotalAmount,totalAmount,totalQuantity,totalTaxAmount)
   return (
     <>
       <div
@@ -30,11 +33,28 @@ const CartDrawer = ({ onClick, cart }: { onClick: () => void; cart: Cart }) => {
           </div>
         )}
         {cart.lines.length > 0 && (
-          <div className="flex flex-col gap-y-4 my-5 h-[65vh] overflow-y-auto ">
-            {cart.lines.map((line) => {
-              return <CartItem key={line.id} line={line} />;
-            })}
-          </div>
+          <>
+            <div className="flex flex-col gap-y-2 my-5 cart-item-container overflow-y-auto ">
+              {cart.lines.map((line) => {
+                return <CartItem key={line.id} line={line} />;
+              })}
+            </div>
+            <div className="mt-3 border-t border-b border-gray-200 py-2">
+                <div className="mb-2 flex items-center justify-between">
+                  <h4>SubTotal</h4>
+                  <p>{moneyFormatter(subtotalAmount.currencyCode,subtotalAmount.amount)}</p>
+                </div>
+                <div className="mb-2 flex items-center justify-between">
+                  <h4>Taxes</h4>
+                  <p>{moneyFormatter(totalTaxAmount.currencyCode,totalTaxAmount.amount)}</p>
+                </div>
+            </div>
+            <div className="mb-3 flex items-center justify-between">
+              <h4>Total Amount</h4>
+              <p>{moneyFormatter(totalAmount.currencyCode,totalAmount.amount)}</p>
+            </div>
+            <a href={cart.checkoutUrl} className="block w-full rounded-lg p-3 text-center bg-black opacity-90 text-white font-semibold hover:opacity-100" >Proceed to checkout</a>
+          </>
         )}
       </div>
     </>

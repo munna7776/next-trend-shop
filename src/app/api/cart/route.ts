@@ -1,4 +1,4 @@
-import { addToCart, updateCart } from "@/libs/shopify";
+import { addToCart, removeCart, updateCart } from "@/libs/shopify";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,8 +12,8 @@ export async function POST(req: NextRequest): Promise<Response> {
     }
 
     try {
-        await addToCart(cartId, [{merchandiseId,quantity}])
-        return NextResponse.json({status: 204})
+        const res = await addToCart(cartId, [{merchandiseId,quantity}])
+        return NextResponse.json({checkoutUrl: res.checkoutUrl},{status: 204})
     } catch (error) {
         return NextResponse.json({error})
     }

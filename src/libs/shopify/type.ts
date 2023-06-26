@@ -116,9 +116,9 @@ export type ShopifyCart = {
     id: string;
     checkoutUrl: string;
     cost: {
-        subTotalAmount: Price;
+        subtotalAmount: Price;
         totalAmount: Price;
-        totalTaxAmunt: Price;
+        totalTaxAmount: Price;
     };
     lines: Connection<CartItemLine>;
     totalQuantity: number;

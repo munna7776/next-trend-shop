@@ -2,6 +2,8 @@ import Header from "@/components/Header"
 import "./globals.css"
 import "swiper/css"
 import "swiper/css/pagination";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Inter } from "next/font/google"
 import Footer from "@/components/Footer"
 
@@ -23,6 +25,18 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <ToastContainer 
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </body>
     </html>
   )
