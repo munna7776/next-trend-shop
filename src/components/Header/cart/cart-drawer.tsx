@@ -22,8 +22,8 @@ const CartDrawer = ({ onClick, cart }: { onClick: () => void; cart: Cart }) => {
           </button>
         </div>
         {cart.lines.length === 0 && (
-          <div className="mt-8 flex flex-col items-center">
-            <CartIcon className="h-20" />
+          <div className="mt-[100px] flex flex-col items-center">
+            <CartIcon height={80} width={80} />
             <h2 className="text-lg my-8 font-semibold text-[#3c3c3c]">
               Your cart is empty
             </h2>

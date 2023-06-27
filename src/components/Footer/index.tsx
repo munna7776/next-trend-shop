@@ -15,7 +15,7 @@ const quickLinks: { link: string; title: string }[] = [
     title: "Shop",
   },
   {
-    link: "/",
+    link: "/contact",
     title: "Contact",
   },
 ];

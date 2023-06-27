@@ -80,12 +80,6 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
   grid-column: span 2;
 }
 
-/* @media (max-width: 991px) {
-  .featured-image {
-    grid-column: span 1;
-  }
-} */
-
 @media(max-width: 768px) {
   .images-grid {
     display: none;

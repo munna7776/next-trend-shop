@@ -77,7 +77,7 @@ const MobileNav = ({onClick}: {onClick: () => void;}) => {
                 <Link className="text-[18px] uppercase font-semibold opacity-70" href="/collections/all" onClick={onClick}>Collections</Link>
               </li>
               <li>
-                <Link className="text-[18px] uppercase font-semibold opacity-70" href="/" onClick={onClick}>Contact</Link>
+                <Link className="text-[18px] uppercase font-semibold opacity-70" href="/contact" onClick={onClick}>Contact</Link>
               </li>
             </ul>
           </div>

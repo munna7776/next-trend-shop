@@ -27,7 +27,7 @@ const Header = () => {
         <Link href="/">Home</Link>
         <Link href="/products/all">Shop</Link>
         <Link href="/collections/all">Collections</Link>
-        <Link href="/">Contact</Link>
+        <Link href="/contact">Contact</Link>
       </nav>
       <div className="flex items-center gap-3">
         <Link href="/">
