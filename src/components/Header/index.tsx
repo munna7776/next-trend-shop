@@ -30,7 +30,7 @@ const Header = () => {
         <Link href="/contact">Contact</Link>
       </nav>
       <div className="flex items-center gap-3">
-        <Link href="/">
+        <Link href="/login">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
