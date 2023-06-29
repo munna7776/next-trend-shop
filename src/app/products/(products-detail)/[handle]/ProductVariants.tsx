@@ -54,7 +54,7 @@ const ProductVariants = ({
                         type="checkbox"
                         onChange={onChange}
                         value={value}
-                        className="hidden"
+                        className="hidden variant-option"
                         name={option.name}
                         id={value}
                         checked={selectedProductOptions[optionIndex].value === value}

@@ -10,8 +10,8 @@ const Page = () => {
         <Image
           src={logo}
           alt="next-trend-shop-logo"
-          height={40}
-          width={40}
+          height={50}
+          width={50}
           className="mx-auto"
         />
         <h1 className="text-4xl text-center mt-4 mb-10 font-bold text-[#3c3c3c]">
@@ -42,9 +42,9 @@ const Page = () => {
               className="focus:outline-none border border-[#ccccd7] px-[10px] py-[10px] rounded-md text-[#5f5f7c] text-lg"
             />
           </div>
-          <Link className="block w-full text-center text-lg text-[#24242e]" href="/login" >Forgot your password?</Link>
+          <Link className="block w-full text-center text-lg text-[#24242e]" href="/forgot-password" >Forgot your password?</Link>
           <button type="submit" className="bg-[#212323] my-4 text-white block w-full py-3 text-lg text-center rounded-md">Sign in</button>
-          <Link className="block w-full text-center text-lg text-[#24242e]" href="/login" >{"Don't have an account? "}<span className="underline whitespace-nowrap" >Sign up</span> here</Link>
+          <Link className="block w-full text-center text-lg text-[#24242e]" href="/register" >{"Don't have an account? "}<span className="underline whitespace-nowrap" >Sign up</span> here</Link>
         </form>
       </div>
       <div className="w-full lg:w-2/5 order-2 md:order-1 xl:order-2">

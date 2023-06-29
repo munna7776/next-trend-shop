@@ -3,6 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import trend1 from "../../../public/images/trend-1-image.jpg"
+import trend2 from "../../../public/images/trend_2_image.jpg"
+import trend3 from "../../../public/images/trend_3_image.jpg"
+import trend4 from "../../../public/images/trend-4-image.jpg"
 
 const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -58,7 +62,7 @@ const Carousel = () => {
       <div className="flex h-full transition-transform duration-[350ms]" style={{transform: `translateX(-${activeIndex*100}%)`}} >
         <div className="basis-full grow-0 shrink-0 relative overlay-shadow">
           <Image
-            src="/images/trend-1-image.jpg"
+            src={trend1}
             alt="trend-image"
             width={1920}
             height={400}
@@ -66,7 +70,7 @@ const Carousel = () => {
             className="h-full block w-full md:hidden"
           />
           <Image
-            src="/images/trend-4-image.jpg"
+            src={trend4}
             alt="trend-image"
             width={1920}
             height={400}
@@ -81,7 +85,7 @@ const Carousel = () => {
         </div>
         <div className="basis-full grow-0 shrink-0 relative overlay-shadow">
           <Image
-            src="/images/trend_2_image.jpg"
+            src={trend2}
             alt="trend-image"
             width={1920}
             height={400}
@@ -91,7 +95,7 @@ const Carousel = () => {
         </div>
         <div className="basis-full grow-0 shrink-0 relative overlay-shadow">
           <Image
-            src="/images/trend_3_image.jpg"
+            src={trend3}
             alt="trend-image"
             width={1920}
             height={500}

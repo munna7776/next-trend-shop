@@ -7,7 +7,6 @@ import { CollectionSkeleton } from "@/components/skeleton-loader";
 import { getCollections } from "@/libs/shopify";
 
 export default async function Home() {
-  
   return (
     <main>
       <Carousel />
