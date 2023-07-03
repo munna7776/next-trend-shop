@@ -1,12 +1,55 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import trend from "../../../../public/images/trend-7-image.jpg";
+import { useState } from "react";
+import { useForm, SubmitHandler  } from "react-hook-form";
 import logo from "../../../../public/next-shop-logo.png";
+import { Input } from "@/components/UI";
+import { validationRules } from "@/libs/const";
+
+type FormValues = {
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  confirmPassword: string,
+  acceptsMarketing: boolean,
+}
 
 const Page = () => {
+  const [loading,setLoading] = useState<boolean>(false)
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    setError,
+    clearErrors
+  } = useForm<FormValues>({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      acceptsMarketing: false,
+    },
+  });
+
+  const handleSignUpSubmit: SubmitHandler<FormValues> = async(data) => {
+    const { confirmPassword, ...input } = data
+    if(confirmPassword !== input.password) {
+      setError("password",{message: "Passwords do not match."}, {shouldFocus: true})
+      setError("confirmPassword",{message: "Passwords do not match."})
+      return;
+    }
+    clearErrors()
+    return;
+  }
+
   return (
-    <section className="flex flex-wrap">
-      <div className="w-full h-full lg:w-3/5 bg-white py-16 order-1">
+    <section className="flex justify-center">
+      <div className="w-full md:w-4/5 lg:w-3/5 xl:w-1/2 bg-white py-16 order-1">
         <Image
           src={logo}
           alt="next-trend-shop-logo"
@@ -17,72 +60,76 @@ const Page = () => {
         <h1 className="text-4xl text-center mt-4 mb-10 font-bold text-[#3c3c3c]">
           Create your account
         </h1>
-        <form className="w-3/4 md:w-1/2 lg:w-3/5 2xl:w-1/2 mx-auto">
-          <div className="flex flex-col gap-[10px]">
-            <label className="#333333 text-lg font-medium" htmlFor="firstName">
-              First Name
-            </label>
-            <input 
-              type="text" 
-              placeholder="First Name" 
-              name="firstName" 
-              id="firstName"
-              className="focus:outline-none border border-[#ccccd7] px-[10px] py-[10px] rounded-md text-[#5f5f7c] text-lg" 
-            />
-          </div>
-          <div className="flex flex-col gap-[10px]  my-6">
-            <label className="#333333 text-lg font-medium" htmlFor="lastName">
-              Last Name
-            </label>
-            <input 
-              type="text" 
-              placeholder="Last Name" 
-              name="lastName" 
-              id="lastName"
-              className="focus:outline-none border border-[#ccccd7] px-[10px] py-[10px] rounded-md text-[#5f5f7c] text-lg" 
-            />
-          </div>
-          <div className="flex flex-col gap-[10px]">
-            <label className="#333333 text-lg font-medium" htmlFor="email">
-              Email
-            </label>
-            <input 
-              type="text" 
-              placeholder="Email" 
-              name="email" 
-              id="email"
-              className="focus:outline-none border border-[#ccccd7] px-[10px] py-[10px] rounded-md text-[#5f5f7c] text-lg" 
-            />
-          </div>
-          <div className="flex flex-col gap-[10px] my-6">
-            <label className="#333333 text-lg font-medium" htmlFor="password">
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              id="password"
-              className="focus:outline-none border border-[#ccccd7] px-[10px] py-[10px] rounded-md text-[#5f5f7c] text-lg"
-            />
-          </div>
-          <div className="flex gap-4 items-center mb-6" >
-            <input type="checkbox" name="acceptsMarketing" id="acceptsMarketing" className="h-[24px] w-[24px] border border-[#ccccd7] grid place-content-center cursor-pointer rounded relative focus:outline-none accepts-marketing" />
-            <label htmlFor="acceptsMarketing" className="text-[#7f7f9a]" >Sign up now to receive email updates and exciting promotions!</label>
-          </div>
-          <button type="submit" className="bg-[#212323] my-4 text-white block w-full py-3 text-lg text-center rounded-md">Sign up</button>
-          <Link className="block w-full text-center text-lg text-[#24242e]" href="/login" >Already have an account? <span className="underline whitespace-nowrap" >Sign in</span> here</Link>
-        </form>
-      </div>
-      <div className="w-full h-full lg:w-2/5 order-2">
-        <div className="relative min-h-[80vh] overflow-hidden">
-          <Image
-            src={trend}
-            alt="next-trend-shop-images"
-            placeholder="blur"
-            fill
+        <form onSubmit={handleSubmit(handleSignUpSubmit)} className="w-[90%] md:w-1/2 lg:w-3/5 2xl:w-1/2 mx-auto">
+          <Input
+            labelText="First Name"
+            placeholder="First Name"
+            name="firstName"
+            register={register}
+            rules={validationRules.firstName}
+            error={errors?.firstName?.message}
           />
-        </div>
+          <Input
+            labelText="Last Name"
+            placeholder="Last Name"
+            name="lastName"
+            className="my-6"
+            register={register}
+            rules={validationRules.lastName}
+            error={errors?.lastName?.message}
+          />
+          <Input
+            labelText="Email"
+            placeholder="Email"
+            name="email"
+            register={register}
+            rules={validationRules.email}
+            error={errors?.email?.message}
+          />
+          <Input
+            type="password"
+            labelText="Password"
+            placeholder="Password"
+            name="password"
+            className="my-6"
+            register={register}
+            rules={validationRules.password}
+            error={errors?.password?.message}
+          />
+          <Input
+            type="password"
+            labelText="Confirm Password"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            register={register}
+            rules={validationRules.confirmPassword}
+            error={errors?.confirmPassword?.message}
+          />
+          <div className="flex gap-3 items-center my-6">
+            <input
+              {...register("acceptsMarketing")}
+              type="checkbox"
+              id="acceptsMarketing"
+              className="h-[24px] w-[24px] border border-[#ccccd7] grid place-content-center cursor-pointer rounded relative focus:outline-none accepts-marketing"
+            />
+            <label htmlFor="acceptsMarketing" className="text-[#7f7f9a]">
+              Sign up now to receive email updates and exciting promotions!
+            </label>
+          </div>
+          <button
+            type="submit"
+            className="bg-[#212323] my-4 text-white block w-full py-3 text-lg text-center rounded-md"
+          >
+            Sign up
+          </button>
+          <Link
+            className="block w-full text-center text-lg text-[#24242e]"
+            href="/login"
+          >
+            Already have an account?{" "}
+            <span className="underline whitespace-nowrap">Sign in</span> here
+          </Link>
+        </form>
       </div>
     </section>
   );

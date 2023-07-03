@@ -13,7 +13,6 @@ export const deleteCartItem = async (lineId: string): Promise<Error | undefined>
     try {
         const res = await removeCart(cartId,[lineId])
     } catch (error) {
-        console.log(error)
         return new Error("Unable to remove the cart item")
     }
 

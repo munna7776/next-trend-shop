@@ -1,9 +1,10 @@
 import { SHOPIFY_GRAPHQL_ENDPOINT } from "../const";
 import { addToCartMutation, cartCreateMutation, cartUpdateMutation, removeFromCartMutation } from "./mutation/cart";
+import { customerCreate } from "./mutation/customer";
 import { getCartQuery } from "./queries/cart";
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getAllProductsQuery, getProductDetailsQuery } from "./queries/product";
-import { CartItemLine, Connection, Image, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
+import { CartItemLine, Connection, Image, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyCreateCustomerReturnType, ShopifyCreateCustomerVariables, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
 
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN!
@@ -206,5 +207,18 @@ export const removeCart = async(cartId: string, lineIds: string[]) => {
     return {
         ...res?.data?.cartLinesRemove?.cart,
         lines: cartLines
+    }
+}
+
+export const createCustomer = async (input: ShopifyCreateCustomerVariables) => {
+    const res = await shopifyFetch<ShopifyCreateCustomerReturnType, {input: ShopifyCreateCustomerVariables}>({
+        query: customerCreate,
+        variables: { input },
+        cache: "no-store"
+    })
+
+    return {
+        customer: res?.data?.customerCreate?.customer,
+        errors: res?.data?.customerCreate?.customerUserErrors
     }
 }

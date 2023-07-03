@@ -193,7 +193,6 @@ export type ShopifyUpdateCartVariables = {
     }[]
 }
 
-
 export type ShopifyUpdateCartReturnType = {
     data: {
         cartLinesUpdate: {
@@ -210,23 +209,29 @@ export type ShopifyCartLinesRemoveReturnType = {
     }
 }
 
-// const collections: ShopifyCollectionsReturnType = {
-//     data: {
-//         collections: {
-//             edges: [
-//                 {
-//                     cursor: '',
-//                     node: {
-//                         description: ''
-//                     }
-//                 }
-//             ],
-//             pageInfo: {
-//                 startCursor: '',
-//                 endCursor: '',
-//                 hasNextPage: false,
-//                 hasPreviousPage: false
-//             }
-//         }
-//     }
-// }
+
+export type ShopifyCreateCustomerReturnType = {
+    data: {
+        customerCreate: {
+            customer: {
+                firstName: string;
+                lastName: string;
+                email: string;
+                id: string;
+            },
+            customerUserErrors: {
+                code: string;
+                field: string[];
+                message: string;
+            }[]
+        }
+    }
+}
+
+export type ShopifyCreateCustomerVariables = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    acceptsMarketing: boolean;
+}

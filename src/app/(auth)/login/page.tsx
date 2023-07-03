@@ -1,9 +1,30 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
 import trend from "../../../../public/images/trend-7-image.jpg";
 import logo from "../../../../public/next-shop-logo.png";
+import { Input } from "@/components/UI";
+import { validationRules } from "@/libs/const";
+
+type FormValues = {
+  email: string;
+  password: string;
+}
 
 const Page = () => {
+  const {register,formState: {errors}, handleSubmit} = useForm<FormValues>({
+    defaultValues: {
+      email: "",
+      password: ""
+    }
+  })
+
+  const handleLoginFormSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log(data)
+  }
+
   return (
     <section className="flex flex-wrap">
       <div className="w-full lg:w-3/5 bg-white py-16 order-1 md:order-2 xl:order-1">
@@ -17,31 +38,25 @@ const Page = () => {
         <h1 className="text-4xl text-center mt-4 mb-10 font-bold text-[#3c3c3c]">
           Login
         </h1>
-        <form className="w-3/4 md:w-1/2 lg:w-3/5 2xl:w-1/2 mx-auto">
-          <div className="flex flex-col gap-[10px]">
-            <label className="#333333 text-lg font-semibold" htmlFor="email">
-              Email
-            </label>
-            <input 
-              type="text" 
-              placeholder="Email" 
-              name="email" 
-              id="email"
-              className="focus:outline-none border border-[#ccccd7] px-[10px] py-[10px] rounded-md text-[#5f5f7c] text-lg" 
-            />
-          </div>
-          <div className="flex flex-col gap-[10px] my-6">
-            <label className="#333333 text-lg font-semibold" htmlFor="password">
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              id="password"
-              className="focus:outline-none border border-[#ccccd7] px-[10px] py-[10px] rounded-md text-[#5f5f7c] text-lg"
-            />
-          </div>
+        <form onSubmit={handleSubmit(handleLoginFormSubmit)} className="w-3/4 md:w-1/2 lg:w-3/5 2xl:w-1/2 mx-auto">
+          <Input 
+            labelText="Email"
+            placeholder="Email"
+            name="email"
+            register={register}
+            rules={validationRules.email}
+            error={errors?.email?.message}
+          />
+          <Input 
+            type="password"
+            labelText="Password"
+            placeholder="Password"
+            name="password"
+            register={register}
+            rules={validationRules.password}
+            error={errors?.password?.message}
+            className="my-6" 
+          />
           <Link className="block w-full text-center text-lg text-[#24242e]" href="/forgot-password" >Forgot your password?</Link>
           <button type="submit" className="bg-[#212323] my-4 text-white block w-full py-3 text-lg text-center rounded-md">Sign in</button>
           <Link className="block w-full text-center text-lg text-[#24242e]" href="/register" >{"Don't have an account? "}<span className="underline whitespace-nowrap" >Sign up</span> here</Link>
