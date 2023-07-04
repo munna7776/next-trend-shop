@@ -209,6 +209,12 @@ export type ShopifyCartLinesRemoveReturnType = {
     }
 }
 
+export type CustomerUserErrors = {
+    code: string;
+    field: string[];
+    message: string;
+}
+
 
 export type ShopifyCreateCustomerReturnType = {
     data: {
@@ -219,11 +225,7 @@ export type ShopifyCreateCustomerReturnType = {
                 email: string;
                 id: string;
             },
-            customerUserErrors: {
-                code: string;
-                field: string[];
-                message: string;
-            }[]
+            customerUserErrors: CustomerUserErrors[]
         }
     }
 }
@@ -234,4 +236,21 @@ export type ShopifyCreateCustomerVariables = {
     email: string;
     password: string;
     acceptsMarketing: boolean;
+}
+
+export type ShopifyCustomerAccessTokenVariable = {
+    email: string;
+    password: string;
+}
+
+export type ShopifyCustomerAccessTokenCreateReturnType = {
+    data: {
+        customerAccessTokenCreate: {
+            customerAccessToken:  {
+                accessToken: string
+                expiresAt: string
+            } | null,
+            customerUserErrors: CustomerUserErrors[]
+        }
+    }
 }

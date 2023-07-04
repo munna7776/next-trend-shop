@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler  } from "react-hook-form";
+import { toast } from "react-toastify";
 import logo from "../../../../public/next-shop-logo.png";
 import { Input } from "@/components/UI";
 import { validationRules } from "@/libs/const";
@@ -36,6 +38,8 @@ const Page = () => {
     },
   });
 
+  const router = useRouter()
+
   const handleSignUpSubmit: SubmitHandler<FormValues> = async(data) => {
     const { confirmPassword, ...input } = data
     if(confirmPassword !== input.password) {
@@ -44,7 +48,30 @@ const Page = () => {
       return;
     }
     clearErrors()
-    return;
+    try {
+      const res = await fetch("/api/auth/signup",{
+        method: "POST",
+        body: JSON.stringify(input)
+      })
+
+      if(res.status === 409) {
+        throw new Error("Email already exists.")
+      }
+
+      if(res.status === 400) {
+        throw new Error("Unable to create your account. Please try again after sometime.")
+      }
+
+      if(res.status === 500) {
+        throw new Error("Internal server error")
+      }
+      
+      const data = await res.json() as {message: string}
+      toast.success(data.message)
+      router.push("/login")
+    } catch (error: any) {
+      toast.error(error.message)
+    }
   }
 
   return (

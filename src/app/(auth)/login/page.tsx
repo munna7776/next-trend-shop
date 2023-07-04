@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { signIn, useSession } from "next-auth/react"
 import trend from "../../../../public/images/trend-7-image.jpg";
 import logo from "../../../../public/next-shop-logo.png";
 import { Input } from "@/components/UI";
@@ -21,8 +22,18 @@ const Page = () => {
     }
   })
 
-  const handleLoginFormSubmit: SubmitHandler<FormValues> = (data) => {
+  const {data,status} = useSession()
+  console.log(status)
+  console.log(data)
+
+  const handleLoginFormSubmit: SubmitHandler<FormValues> = async(data) => {
     console.log(data)
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password
+    })
+    console.log(result)
   }
 
   return (
