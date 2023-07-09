@@ -45,8 +45,7 @@ const CartItemQuantity = ({quantity,lineId,merchandiseId}: {
         method: "PUT",
         body: JSON.stringify({lineId,merchandiseId,quantity: quantityInputRef.current.valueAsNumber})
     })
-    console.log(res)
-    const data = await res.json()
+    await res.json()
     setLoading(false)
     startTransition(() => router.refresh())
    }

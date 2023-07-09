@@ -193,6 +193,89 @@ export type ShopifyUpdateCartVariables = {
     }[]
 }
 
+export type MailingAddress = {
+    address1: string;
+    address2: string;
+    city: string;
+    company: string;
+    country: string;
+    countryCodeV2: string;
+    firstName: string;
+    formatted: string;
+    formattedArea: string;
+    id: string;
+    lastName: string;
+    name: string;
+    phone: string;
+    province: string;
+    provinceCode: string;
+    zip: string;
+}
+
+export type Attribute = {
+    key: string;
+    value: string;
+}
+
+
+export type OrderLineItem = {
+    currentQuantity: number;
+    customAttributes: Attribute[];
+    discountedTotalPrice: Price;
+    quantity: number;
+    title: string;
+    variant: ShopifyProductVariant
+}
+
+export type OrderFinancialStatus = "AUTHORIZED" | "PARTIALLY_PAID" | "PARTIALLY_REFUNDED" | "VOIDED" | "PAID" | "REFUNDED";
+export type OrderFulFillmentStatus = "UNFULFILLED" | "PARTIALLY_FULFILLED" | "FULFILLED" | "RESTOCKED" | "PENDING_FULFILLMENT" | "OPEN" | "IN_PROGRESS" | "ON_HOLD" | "SCHEDULED";
+
+export type Order = {
+    billingAddress: MailingAddress;
+    cancelReason: "CUSTOMER" | "DECLINED" |"FRAUD" | "INVENTORY" | "OTHER" | null;
+    canceledAt: string | null;
+    currencyCode: string;
+    currentSubTotalPrice: Price;
+    currentTotalDuties: Price;
+    currentTotalPrice: Price;
+    currentTotalTax: Price;
+    customAttributes: Attribute[];
+    customerLocale: string;
+    customerUrl: string;
+    email: string;
+    financialStatus: OrderFinancialStatus;
+    fulfillmentStatus: OrderFulFillmentStatus;
+    id: string;
+    lineItems: Connection<OrderLineItem>;
+    name: string;
+    orderNumber: number;
+    originalTotalDuties: Price;
+    originalTotalPrice: Price;
+    phone: string;
+    shippingAddress: MailingAddress;
+    statusUrl: string;
+    subTotalPrice: Price;
+    totalPrice: Price;
+    totalRefunded: Price;
+    totalShippingPrice: Price;
+    totalTax: Price;
+}
+
+export type Customer = {
+    acceptsMarketing: boolean;
+    addresses: Connection<MailingAddress>;
+    defaultAddress: MailingAddress;
+    displayName: string;
+    email: string;
+    firstName: string;
+    id: string;
+    lastName: string;
+    numberOfOrders: number;
+    orders: Connection<Order>;
+    phone: string;
+    tags: string[]
+}
+
 export type ShopifyUpdateCartReturnType = {
     data: {
         cartLinesUpdate: {

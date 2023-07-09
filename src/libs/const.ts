@@ -1,6 +1,6 @@
 import {RegisterOptions} from "react-hook-form"
 
-export const SHOPIFY_GRAPHQL_ENDPOINT = "/api/2023-04/graphql.json";
+export const SHOPIFY_GRAPHQL_ENDPOINT = "/api/2023-07/graphql.json";
 
 type Field = "firstName" | "lastName" | "email" | "password" | "confirmPassword"
 

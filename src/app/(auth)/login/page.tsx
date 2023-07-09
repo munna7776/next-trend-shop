@@ -23,17 +23,15 @@ const Page = () => {
   })
 
   const {data,status} = useSession()
-  console.log(status)
-  console.log(data)
+  // console.log(status)
+  // console.log(data)
 
   const handleLoginFormSubmit: SubmitHandler<FormValues> = async(data) => {
-    console.log(data)
     const result = await signIn("credentials", {
       redirect: false,
       email: data.email,
       password: data.password
     })
-    console.log(result)
   }
 
   return (

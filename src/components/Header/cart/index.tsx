@@ -10,7 +10,6 @@ export default async function Cart() {
 
     if(cartId) {
         cart = await getCart(cartId)
-        // console.log("cart ", cart.totalQuantity)
     }
 
     if(!cartId || !cart) {

@@ -59,7 +59,7 @@ export const shopifyFetch = async<T,U extends unknown>({
 }
 
 const removeEdgesAndNodes = (array: Connection<any>) => {
-    return array.edges.map(edge => edge.node)
+    return array?.edges?.map(edge => edge.node)
 }
 
 export const getCollections = async(variables: ShopifyCollectionsVariables) => {
@@ -130,7 +130,8 @@ export const getProductDetails = async(handle: string) => {
 
 export const cartCreate = async() => {
     const res = await shopifyFetch<ShopifyCartCreateReturnType, unknown>({
-        query: cartCreateMutation
+        query: cartCreateMutation,
+        cache: "no-store",
     })
 
     const {cart} = res?.data?.cartCreate
@@ -240,7 +241,8 @@ export const createCustomerAccessToken = async(input: ShopifyCustomerAccessToken
 export const getCustomer = async (accessToken: string) => {
     const res: any = await shopifyFetch<any,any>({
         query: getCustomerQuery,
-        variables: { accessToken }
+        variables: { accessToken },
+        cache: "no-store"
     })
 
     return res.data.customer

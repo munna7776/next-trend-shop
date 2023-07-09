@@ -22,13 +22,6 @@ const ProductBuyButton = ({variantId}: {variantId: string}) => {
     startTransition(() => router.refresh())
   }
 
-  // const handleBuyNow = () => {
-  //   startTransition(async() => {
-  //     const data = await buyNow(variantId,quantity)
-  //     console.log(data)
-  //   })
-  // }
-
   const isAddingToCart = loading || pending
   return (
     <>
