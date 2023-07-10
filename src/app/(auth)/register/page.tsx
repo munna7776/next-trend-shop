@@ -49,6 +49,7 @@ const Page = () => {
     }
     clearErrors()
     try {
+      setLoading(true)
       const res = await fetch("/api/auth/signup",{
         method: "POST",
         body: JSON.stringify(input)
@@ -71,6 +72,7 @@ const Page = () => {
       router.push("/login")
     } catch (error: any) {
       toast.error(error.message)
+      setLoading(false)
     }
   }
 
@@ -145,9 +147,9 @@ const Page = () => {
           </div>
           <button
             type="submit"
-            className="bg-[#212323] my-4 text-white block w-full py-3 text-lg text-center rounded-md"
+            className="bg-[#212323] grid place-items-center my-4 text-white w-full py-3 text-lg text-center rounded-md"
           >
-            Sign up
+            { loading ? <span className="inline-block h-[28px] w-[28px] border-t-2 border-r-2 border-white rounded-3xl animate-spin"  /> : "Sign up" }
           </button>
           <Link
             className="block w-full text-center text-lg text-[#24242e]"

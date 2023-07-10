@@ -224,7 +224,7 @@ export type OrderLineItem = {
     discountedTotalPrice: Price;
     quantity: number;
     title: string;
-    variant: ShopifyProductVariant
+    variant: ShopifyProductVariant & { product: Product }
 }
 
 export type OrderFinancialStatus = "AUTHORIZED" | "PARTIALLY_PAID" | "PARTIALLY_REFUNDED" | "VOIDED" | "PAID" | "REFUNDED";
@@ -235,7 +235,7 @@ export type Order = {
     cancelReason: "CUSTOMER" | "DECLINED" |"FRAUD" | "INVENTORY" | "OTHER" | null;
     canceledAt: string | null;
     currencyCode: string;
-    currentSubTotalPrice: Price;
+    currentSubtotalPrice: Price;
     currentTotalDuties: Price;
     currentTotalPrice: Price;
     currentTotalTax: Price;
@@ -254,7 +254,7 @@ export type Order = {
     phone: string;
     shippingAddress: MailingAddress;
     statusUrl: string;
-    subTotalPrice: Price;
+    subtotalPrice: Price;
     totalPrice: Price;
     totalRefunded: Price;
     totalShippingPrice: Price;
@@ -264,7 +264,7 @@ export type Order = {
 export type Customer = {
     acceptsMarketing: boolean;
     addresses: Connection<MailingAddress>;
-    defaultAddress: MailingAddress;
+    defaultAddress: MailingAddress | null;
     displayName: string;
     email: string;
     firstName: string;
@@ -272,7 +272,7 @@ export type Customer = {
     lastName: string;
     numberOfOrders: number;
     orders: Connection<Order>;
-    phone: string;
+    phone: string | null;
     tags: string[]
 }
 

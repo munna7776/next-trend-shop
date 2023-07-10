@@ -9,15 +9,19 @@ const Page = async() => {
   if(!session) {
     return redirect("/login")
   }
-  const res = await getCustomer(session.user?.accessToken as string)
-  console.log(res)
+  const customer = await getCustomer(session.user?.accessToken as string)
+  
   return (
     <main>
       <section className="bg-[#F7F7F9] py-6">
         <h1 className="text-center text-[#333333] font-semibold text-2xl sm:text-[32px]" >
-          {"Welcome, " + res.firstName + " " + res.lastName}
+          {"Welcome, " + customer?.firstName + " " + customer?.lastName}
         </h1>
         <LogoutButton />
+      </section>
+      <section className="bg-white py-10 px-4 flex justify-between" >
+        <div id="order-history" ></div>
+        <div id="address" ></div>
       </section>
     </main>
   )

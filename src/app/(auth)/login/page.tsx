@@ -3,11 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { signIn, useSession } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import trend from "../../../../public/images/trend-7-image.jpg";
 import logo from "../../../../public/next-shop-logo.png";
 import { Input } from "@/components/UI";
 import { validationRules } from "@/libs/const";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
   email: string;
@@ -21,17 +24,21 @@ const Page = () => {
       password: ""
     }
   })
-
-  const {data,status} = useSession()
-  // console.log(status)
-  // console.log(data)
+  const [loading, setLoading] = useState<boolean>(false)
+  const router = useRouter()
 
   const handleLoginFormSubmit: SubmitHandler<FormValues> = async(data) => {
+    setLoading(true)
     const result = await signIn("credentials", {
       redirect: false,
       email: data.email,
       password: data.password
     })
+    setLoading(false)
+    if(result?.error) {
+      return toast.error(result.error)
+    }
+    router.push("/account")
   }
 
   return (
@@ -67,7 +74,9 @@ const Page = () => {
             className="my-6" 
           />
           <Link className="block w-full text-center text-lg text-[#24242e]" href="/forgot-password" >Forgot your password?</Link>
-          <button type="submit" className="bg-[#212323] my-4 text-white block w-full py-3 text-lg text-center rounded-md">Sign in</button>
+          <button type="submit" className="bg-[#212323] grid place-items-center my-4 relative text-white w-full py-3 text-lg rounded-md">
+          { loading ? <span className="inline-block h-[28px] w-[28px] border-t-2 border-r-2 border-white rounded-3xl animate-spin"  /> : "Sign in" }
+          </button>
           <Link className="block w-full text-center text-lg text-[#24242e]" href="/register" >{"Don't have an account? "}<span className="underline whitespace-nowrap" >Sign up</span> here</Link>
         </form>
       </div>

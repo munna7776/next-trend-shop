@@ -26,23 +26,12 @@ export const authOptions: AuthOptions = {
                 }
 
                 if(!res.customerAccessToken?.accessToken) {
-                    return;
+                    return null;
                 }
 
-                const customer = await getCustomer(res.customerAccessToken.accessToken)
-
-                const user = {
-                    id: customer.id,
-                    name: customer.firstName+" "+customer.lastName,
-                    email: customer.email,
-                    image: null,
-                    accessToken: res.customerAccessToken.accessToken,
-                    expiresAt: res.customerAccessToken.expiresAt
+                return {
+                    accessToken: res.customerAccessToken?.accessToken 
                 }
-                if(user.email) {
-                    return user
-                }
-                return null
             },    
         })
     ],
@@ -50,7 +39,6 @@ export const authOptions: AuthOptions = {
         async jwt({token,user}) {
             if(user) {
                 token.accessToken = user.accessToken
-                token.expiresAt = user.expiresAt
             }
             return token
         },
