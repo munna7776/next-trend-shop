@@ -6,7 +6,7 @@ import { getCartQuery } from "./queries/cart";
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getCustomerQuery } from "./queries/customer";
 import { getAllProductsQuery, getProductDetailsQuery } from "./queries/product";
-import { CartItemLine, Connection, Customer, Image, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyCreateCustomerReturnType, ShopifyCreateCustomerVariables, ShopifyCustomerAccessTokenCreateReturnType, ShopifyCustomerAccessTokenVariable, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
+import { CartItemLine, Connection, Customer, Image, MailingAddress, Order, OrderLineItem, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyCreateCustomerReturnType, ShopifyCreateCustomerVariables, ShopifyCustomerAccessTokenCreateReturnType, ShopifyCustomerAccessTokenVariable, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
 
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN!
@@ -256,9 +256,22 @@ export const getCustomer = async (accessToken: string) => {
         })
         await signoutRes.json()
         redirect("/login")
-        return;
-
     }
 
-    return customer
+    const {addresses, orders} = customer
+    const newAddresses = removeEdgesAndNodes(addresses) as MailingAddress[]
+    const newOrders = removeEdgesAndNodes(orders) as Order[]
+    const newOrdersWithReshapedLineItems  = newOrders.map((order) => {
+        const newLineItems = removeEdgesAndNodes(order.lineItems) as OrderLineItem[]
+        return {
+            ...order,
+            lineItems: newLineItems
+        }
+    })
+
+    return {
+        ...customer,
+        addresses: newAddresses,
+        orders: newOrdersWithReshapedLineItems
+    }
 }

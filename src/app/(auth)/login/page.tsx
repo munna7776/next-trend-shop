@@ -81,7 +81,7 @@ const Page = () => {
         </form>
       </div>
       <div className="w-full lg:w-2/5 order-2 md:order-1 xl:order-2">
-        <div className="relative min-h-[80vh] overflow-hidden">
+        <div className="relative h-full overflow-hidden">
           <Image
             src={trend}
             alt="next-trend-shop-images"

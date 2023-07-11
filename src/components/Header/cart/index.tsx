@@ -12,7 +12,7 @@ export default async function Cart() {
         cart = await getCart(cartId)
     }
 
-    if(!cartId || !cart) {
+    if(!cartId || !cart?.lines) {
         cart = await cartCreate()
         cartIdUpdated = true
     }
