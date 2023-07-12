@@ -34,8 +34,8 @@ const Page = () => {
       email: data.email,
       password: data.password
     })
-    setLoading(false)
     if(result?.error) {
+      setLoading(false)
       return toast.error(result.error)
     }
     router.push("/account")

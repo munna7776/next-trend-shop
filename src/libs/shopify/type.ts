@@ -252,6 +252,7 @@ export type Order = {
     originalTotalDuties: Price;
     originalTotalPrice: Price;
     phone: string;
+    processedAt: string;
     shippingAddress: MailingAddress;
     statusUrl: string;
     subtotalPrice: Price;

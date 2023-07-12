@@ -113,3 +113,26 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
     margin: 20px 32px;
   }
 }
+
+.card-image {
+  @apply relative flex justify-center items-center aspect-square;
+}
+
+.card-image::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-full z-10 block rounded-md;
+}
+
+.card-image > img {
+  animation: fadeIn ease 0.5s linear forwards;
+}
+
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

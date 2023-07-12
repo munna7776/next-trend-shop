@@ -100,6 +100,7 @@ const orderFragment = `
       currencyCode
     }
     phone
+    processedAt
     shippingAddress {
       ...shippingAddress
     }
