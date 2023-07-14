@@ -124,7 +124,8 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 }
 
 .card-image > img {
-  animation: fadeIn ease 0.5s linear forwards;
+  @apply aspect-[inherit] rounded-l-md ;
+  animation: fadeInAnimation 0.5s linear forwards;
 }
 
 
