@@ -22,7 +22,7 @@ fragment orderLineItem on OrderLineItem {
 ${productFragment}
 `;
 
-const addressFragment = (name: string) => {
+export const addressFragment = (name: string) => {
   return (
     `
       fragment ${name} on MailingAddress {
@@ -149,6 +149,9 @@ query customer($accessToken: String!) {
           startCursor
         }
       }
+      defaultAddress {
+        ...defaultAddress
+      }
       displayName
       email
       firstName
@@ -174,6 +177,7 @@ query customer($accessToken: String!) {
     }
 }
 ${addressFragment("address")}
+${addressFragment("defaultAddress")}
 ${orderFragment}
 `
 

@@ -201,7 +201,7 @@ export type MailingAddress = {
     country: string;
     countryCodeV2: string;
     firstName: string;
-    formatted: string;
+    formatted: string[];
     formattedArea: string;
     id: string;
     lastName: string;
@@ -265,7 +265,7 @@ export type Order = {
 export type Customer = {
     acceptsMarketing: boolean;
     addresses: Connection<MailingAddress>;
-    defaultAddress: MailingAddress | null;
+    defaultAddress?: MailingAddress | null;
     displayName: string;
     email: string;
     firstName: string;

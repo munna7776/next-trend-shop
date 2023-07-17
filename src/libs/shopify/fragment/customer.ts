@@ -23,21 +23,6 @@ const addressFragment = `
 
 export const customerFragment = `
  fragment customer on Customer {
-    acceptsMarketing
-    addresses(first:10) {
-        edges {
-            cursor
-            node {
-                ...address
-            }
-        }
-        pageInfo {
-            hasNextPage
-            hasPreviousPage
-            startCursor
-            endCursor
-        }
-    }
     email
     firstName
     lastName
@@ -45,6 +30,5 @@ export const customerFragment = `
     phone
     tags
  }
- ${addressFragment}
 `
 

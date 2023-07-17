@@ -6,3 +6,4 @@ export { default as DeleteIcon } from "./delete-icon";
 export { default as EmailIcon } from "./email-icon";
 export { default as PhoneIcon } from "./phone-icon";
 export { default as AddressIcon } from "./address-icon";
+export { default as EditIcon } from "./edit-icon";

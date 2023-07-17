@@ -7,6 +7,7 @@ import { getCustomer } from "@/libs/shopify";
 import LogoutButton from "./logout-button";
 import { Order, OrderLineItem } from "@/libs/shopify/type";
 import { statusMessage } from "@/libs/utils";
+import AddressBook from "./Address";
 
 const Page = async () => {
   const session = await getServerSession(authOptions);
@@ -14,7 +15,7 @@ const Page = async () => {
     return redirect("/login");
   }
   const customer = await getCustomer(session.user?.accessToken as string);
-  const { orders } = customer;
+  const { orders, defaultAddress, addresses } = customer;
 
   return (
     <main>
@@ -50,6 +51,10 @@ const Page = async () => {
           </ul>
         )}
       </section>
+      <section className="bg-white pb-10 px-8" >
+          <h3 className="text-xl font-medium" >Your Addresses</h3>
+          <AddressBook addresses={addresses} defaultAddress={defaultAddress} />
+      </section>
     </main>
   );
 };
@@ -62,11 +67,10 @@ const OrderCard = ({
   order: Omit<Order, "lineItems"> & { lineItems: OrderLineItem[] };
 }) => {
   const { lineItems } = order
-  // console.log(order.fulfillmentStatus)
 
   return (
     <li className="border rounded-lg hover:bg-gray-100">
-      <Link href="/account" className="flex flex-col md:items-center md:flex-row " >
+      <Link href="/account" className="flex flex-col md:items-center md:flex-row overflow-hidden " >
         <Image
           src={lineItems[0].variant?.image ? lineItems[0].variant.image.url : lineItems[0].variant.product.featuredImage.url}
           alt={`${lineItems[0].title} order image`}
