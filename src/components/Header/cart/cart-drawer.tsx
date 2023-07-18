@@ -5,8 +5,7 @@ import CartItem from "./cart-item";
 import { moneyFormatter } from "@/libs/utils";
 
 const CartDrawer = ({ onClick, cart }: { onClick: () => void; cart: Cart }) => {
-  const { totalQuantity, cost: {subtotalAmount,totalAmount,totalTaxAmount} } = cart
-  console.log(subtotalAmount,totalAmount,totalQuantity,totalTaxAmount)
+  const { cost: {subtotalAmount,totalAmount,totalTaxAmount} } = cart
   return (
     <>
       <div

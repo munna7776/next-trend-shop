@@ -2,10 +2,12 @@ import React from "react";
 
 const DeleteIcon = ({
   height=24,
-  width=24
+  width=24,
+  className=""
 }: {
   height?: string | number;
   width?: string | number;
+  className?: string;
 }) => {
   return (
     <svg
@@ -13,7 +15,7 @@ const DeleteIcon = ({
       viewBox="0 0 16 16"
       aria-hidden="true"
       focusable="false"
-      className="opacity-70"
+      className={`opacity-70 ${className}`}
       height={height}
       width={width}
     >

@@ -64,7 +64,7 @@ mutation CustomerAddressDelete($id: ID!, $token: String!) {
 }
 `
 
-export const customerAddressUpdate = `
+export const customerAddressUpdateMutation = `
 mutation CustomerAddressUpdate($token: String!, $id: ID!, $address: MailingAddressInput!) {
   customerAddressUpdate(customerAccessToken: $token, id: $id, address: $address) {
     customerAddress {
@@ -78,4 +78,20 @@ mutation CustomerAddressUpdate($token: String!, $id: ID!, $address: MailingAddre
   }
 }
 ${addressFragment("address")}
+`
+
+export const customerAddressCreateMuation = `
+mutation CustomerAddressCreate($address: MailingAddressInput!, $token: String!) {
+  customerAddressCreate(address: $address, customerAccessToken: $token) {
+    customerAddress {
+      ...customerAddress
+    }
+    customerUserErrors {
+      message
+      code
+      field
+    }
+  }
+}
+${addressFragment("customerAddress")}
 `

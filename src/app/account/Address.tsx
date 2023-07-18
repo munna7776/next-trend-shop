@@ -1,6 +1,6 @@
 import React from "react";
 import { MailingAddress } from "@/libs/shopify/type";
-import Address from "@/components/Address";
+import { AddNewAddress, Address } from "@/components/Address";
 
 
 const AddressBook = ({
@@ -18,9 +18,7 @@ const AddressBook = ({
             You haven&apos;t saved any addresses yet.
           </p>
         )}
-        <button className="py-3 px-4 bg-black text-white text-lg rounded-sm">
-          Add an address
-        </button>
+        <AddNewAddress />
       </div>
       {addresses.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
