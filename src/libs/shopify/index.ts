@@ -4,9 +4,9 @@ import { addToCartMutation, cartCreateMutation, cartUpdateMutation, removeFromCa
 import { customerAccessTokenCreate, customerAddressCreateMuation, customerAddressDelete, customerAddressUpdateMutation, customerCreate } from "./mutation/customer";
 import { getCartQuery } from "./queries/cart";
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
-import { getCustomerQuery } from "./queries/customer";
+import { getCustomerQuery, orderQuery } from "./queries/customer";
 import { getAllProductsQuery, getProductDetailsQuery } from "./queries/product";
-import { CartItemLine, Connection, Customer, CustomerUserErrors, Image, MailingAddress, MailingAddressInput, Order, OrderLineItem, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyCreateCustomerReturnType, ShopifyCreateCustomerVariables, ShopifyCustomerAccessTokenCreateReturnType, ShopifyCustomerAccessTokenVariable, ShopifyCustomerAddressCreate, ShopifyCustomerAddressUpdate, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
+import { CartItemLine, Connection, Customer, CustomerUserErrors, Image, MailingAddress, MailingAddressInput, Order, OrderLineItem, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyCreateCustomerReturnType, ShopifyCreateCustomerVariables, ShopifyCustomerAccessTokenCreateReturnType, ShopifyCustomerAccessTokenVariable, ShopifyCustomerAddressCreate, ShopifyCustomerAddressUpdate, ShopifyCustomerOrder, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
 
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN!
@@ -312,4 +312,19 @@ export const customerAddressUpdate = async(variables: {
         variables
     })
     return res.data.customerAddressUpdate
+}
+
+export const getCustomerOrder = async(orderId: string) => {
+    const res = await shopifyFetch<ShopifyCustomerOrder, { orderId: string }>({
+        query: orderQuery,
+        variables: {orderId}
+    })
+
+    const { lineItems } = res.data.node
+    const reshapedLineItems = removeEdgesAndNodes(lineItems) as OrderLineItem[]
+
+    return {
+        ...res.data.node,
+        lineItems: reshapedLineItems
+    }
 }

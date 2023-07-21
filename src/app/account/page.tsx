@@ -74,7 +74,7 @@ const OrderCard = ({
       <Link href={`/account/orders/${orderId}?${key}`} className="flex flex-col md:items-center md:flex-row overflow-hidden " >
         <Image
           src={lineItems[0].variant?.image ? lineItems[0].variant.image.url : lineItems[0].variant.product.featuredImage.url}
-          alt={`${lineItems[0].title} order image`}
+          alt={lineItems[0].title}
           width={400}
           height={400}
           className="w-full object-cover rounded-t-lg rounded-b-none md:rounded-l-lg md:rounded-r-none h-64 sm:h-80 md:h-64 md:w-48"

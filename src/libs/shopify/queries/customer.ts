@@ -1,3 +1,4 @@
+import { imageFragment } from "../fragment/image";
 import { productFragment } from "../fragment/product"
 
 const orderLineItemFragment = `
@@ -14,12 +15,28 @@ fragment orderLineItem on OrderLineItem {
   quantity
   title
   variant {
+    id
+    title
+    image {
+      ...image
+    }
+    price {
+      amount
+      currencyCode
+    }
+    quantityAvailable
+    selectedOptions {
+      name
+      value
+    }
+    sku
     product {
       ...product
     }
   }
 }
 ${productFragment}
+${imageFragment}
 `;
 
 export const addressFragment = (name: string) => {

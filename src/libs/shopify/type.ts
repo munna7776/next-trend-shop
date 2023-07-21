@@ -358,3 +358,9 @@ export type ShopifyCustomerAddressUpdate = {
         }
     }
 }
+
+export type ShopifyCustomerOrder = {
+    data: {
+        node: Order
+    }
+}
