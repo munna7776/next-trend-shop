@@ -6,7 +6,7 @@ const CollectionsSkeleton = ({noOfSkeleton}: {noOfSkeleton: number}) => {
         {
             [...new Array(noOfSkeleton)].map((_,index) => {
                 return (
-                    <li key={index} className="grid h-[350px] animate-pulse">
+                    <li key={index} className="grid h-[350px]">
                             <div className="w-full h-full row-start-1 row-end-2 col-start-1 col-end-2 rounded-lg bg-slate-200" ></div>
                             <div className="row-start-1 row-end-2 col-start-1 col-end-2 self-end mx-auto mb-[20px] shadow-[0px_3px_8px_rgba(0,0,0,0.24)] w-[200px] bg-slate-200 border border-white rounded-xl h-[28px]">
                             </div>

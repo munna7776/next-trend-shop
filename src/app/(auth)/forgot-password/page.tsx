@@ -46,7 +46,7 @@ const Page = () => {
           <Link className="block w-full text-center text-lg text-[#24242e]" href="/login" >Cancel</Link>
         </form>
       </div>
-      <div className="w-full lg:w-2/5 order-2">
+      <div className="w-0 none lg:block lg:w-2/5 order-2">
         <div className="relative min-h-[80vh] overflow-hidden">
           <Image
             src={trend}

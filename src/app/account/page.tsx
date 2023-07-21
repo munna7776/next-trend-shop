@@ -67,10 +67,11 @@ const OrderCard = ({
   order: Omit<Order, "lineItems"> & { lineItems: OrderLineItem[] };
 }) => {
   const { lineItems } = order
+  const [orderId, key] = order.id.split("/").pop()!.split("?")
 
   return (
     <li className="border rounded-lg hover:bg-gray-100">
-      <Link href="/account" className="flex flex-col md:items-center md:flex-row overflow-hidden " >
+      <Link href={`/account/orders/${orderId}?${key}`} className="flex flex-col md:items-center md:flex-row overflow-hidden " >
         <Image
           src={lineItems[0].variant?.image ? lineItems[0].variant.image.url : lineItems[0].variant.product.featuredImage.url}
           alt={`${lineItems[0].title} order image`}

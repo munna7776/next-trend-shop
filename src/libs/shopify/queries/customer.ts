@@ -179,5 +179,16 @@ query customer($accessToken: String!) {
 ${addressFragment("address")}
 ${addressFragment("defaultAddress")}
 ${orderFragment}
-`
+`;
+
+export const orderQuery = `
+query CustomerOrder($orderId: ID!) {
+    node(id: $orderId) {
+        ... on Order {
+            ...order
+        }
+    }
+}
+${orderFragment}
+`;
 
