@@ -114,6 +114,15 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
   }
 }
 
+@media(min-width: 1920px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 325px);
+  }
+  .skeleton-grid {
+    grid-template-columns: repeat(4, 325px)
+  }
+}
+
 .card-image {
   @apply relative flex justify-center items-center aspect-square;
 }

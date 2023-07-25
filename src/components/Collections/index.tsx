@@ -7,7 +7,7 @@ import { getCollections } from "@/libs/shopify";
 const Collections = async () => {
   const {collections} = await getCollections({first:4});
   return (
-      <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-4">
+      <ul className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-10 mt-4">
         {collections.map((collection, index) => {
           return (
             <li key={index} className="grid h-[350px] rounded-lg overflow-hidden">
