@@ -19,6 +19,10 @@ fragment cart on Cart {
         currencyCode
       }
     }
+    discountCodes {
+      code
+      applicable
+    }
     lines(first: 10) {
       edges {
         node {

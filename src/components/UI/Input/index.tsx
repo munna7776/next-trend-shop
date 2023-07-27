@@ -6,7 +6,7 @@ import {
 } from "react-hook-form";
 
 type InputProps<T> = {
-  labelText: string;
+  labelText?: string;
   placeholder?: string;
   name: Path<T extends FieldValues ? T : any>;
   type?: "text" | "password" | "number";
@@ -17,7 +17,7 @@ type InputProps<T> = {
 };
 
 const Input = <T extends unknown>({
-  labelText,
+  labelText = "",
   placeholder,
   name,
   type = "text",
@@ -28,14 +28,18 @@ const Input = <T extends unknown>({
 }: InputProps<T>) => {
   return (
     <div className={`flex flex-col ${className}`}>
-      <label
-        className={`text-[#333333] text-lg font-medium ${
-          error ? "text-[#dc3545]" : ""
-        }`}
-        htmlFor={name}
-      >
-        {labelText}
-      </label>
+      {
+        labelText && (
+          <label
+            className={`text-[#333333] text-lg font-medium ${
+              error ? "text-[#dc3545]" : ""
+            }`}
+            htmlFor={name}
+          >
+            {labelText}
+          </label>
+        )
+      }
       <input
         {...register(name, rules)}
         type={type}

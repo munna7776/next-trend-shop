@@ -14,7 +14,7 @@ const Loading = () => {
       </div>
       <ul className="mt-2 mb-6 grid gap-6 justify-center product-grid" >
         {[...new Array(10)].map((_, index) => (
-          <ProductSkeleton key={index} />
+          <ProductSkeleton key={index} className="min-w-[325px] xl:w-[325px]" />
         ))}
       </ul>
     </>

@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
 import { SHOPIFY_GRAPHQL_ENDPOINT } from "../const";
-import { addToCartMutation, cartCreateMutation, cartUpdateMutation, removeFromCartMutation } from "./mutation/cart";
+import { addToCartMutation, cartCreateMutation, cartDiscountCodesUpdateMuation, cartUpdateMutation, removeFromCartMutation } from "./mutation/cart";
 import { customerAccessTokenCreate, customerAddressCreateMuation, customerAddressDelete, customerAddressUpdateMutation, customerCreate } from "./mutation/customer";
 import { getCartQuery } from "./queries/cart";
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getCustomerQuery, orderQuery } from "./queries/customer";
-import { getAllProductsQuery, getProductDetailsQuery } from "./queries/product";
-import { CartItemLine, Connection, Customer, CustomerUserErrors, Image, MailingAddress, MailingAddressInput, Order, OrderLineItem, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyCreateCustomerReturnType, ShopifyCreateCustomerVariables, ShopifyCustomerAccessTokenCreateReturnType, ShopifyCustomerAccessTokenVariable, ShopifyCustomerAddressCreate, ShopifyCustomerAddressUpdate, ShopifyCustomerOrder, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
+import { getAllProductsQuery, getProductDetailsQuery, productRecommendationsQuery } from "./queries/product";
+import { CartItemLine, Connection, Customer, CustomerUserErrors, Image, MailingAddress, MailingAddressInput, Order, OrderLineItem, ShopifyAddToCartReturnType, ShopifyAddToCartVariables, ShopifyAllProductsReturnType, ShopifyCartCreateReturnType, ShopifyCartDiscountUpdatesReturnType, ShopifyCartLinesRemoveReturnType, ShopifyCollection, ShopifyCollectionProduct, ShopifyCollectionProductReturnType, ShopifyCollectionsReturnType, ShopifyCollectionsVariables, ShopifyCreateCustomerReturnType, ShopifyCreateCustomerVariables, ShopifyCustomerAccessTokenCreateReturnType, ShopifyCustomerAccessTokenVariable, ShopifyCustomerAddressCreate, ShopifyCustomerAddressUpdate, ShopifyCustomerOrder, ShopifyGetCartReturnType, ShopifyProductReturnType, ShopifyProductVariant, ShopifyUpdateCartReturnType, ShopifyUpdateCartVariables } from "./type";
 
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN!
@@ -43,7 +43,6 @@ export const shopifyFetch = async<T,U extends unknown>({
         })
 
         const result = await res.json()
-
         if(result.errors) {
             throw {
                 message: result.errors[0].message, 
@@ -129,6 +128,16 @@ export const getProductDetails = async(handle: string) => {
     }
 }
 
+export const getProductRecommendations = async(productId: string) => {
+    const res = await shopifyFetch<{ data: {productRecommendations: ShopifyCollectionProduct[]} }, { productId: string }>({
+        query: productRecommendationsQuery,
+        variables: { productId },
+        cache: "no-store"
+    })
+
+    return res.data.productRecommendations
+}
+
 export const cartCreate = async() => {
     const res = await shopifyFetch<ShopifyCartCreateReturnType, unknown>({
         query: cartCreateMutation,
@@ -211,6 +220,18 @@ export const removeCart = async(cartId: string, lineIds: string[]) => {
         ...res?.data?.cartLinesRemove?.cart,
         lines: cartLines
     }
+}
+
+export const cartDiscountCodesUpdate = async(cartId: string, discountCodes: string[]) => {
+    const res = await shopifyFetch<ShopifyCartDiscountUpdatesReturnType, { cartId: string, discountCodes: string[] }>({
+        query: cartDiscountCodesUpdateMuation,
+        variables: { cartId, discountCodes },
+        cache: "no-store"
+    })
+    return {
+        errors: res?.data?.cartDiscountCodesUpdate?.userErrors
+    }
+
 }
 
 export const createCustomer = async (input: ShopifyCreateCustomerVariables) => {

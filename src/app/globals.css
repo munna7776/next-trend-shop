@@ -45,7 +45,7 @@
 }
 
 .cart-item-container {
-  height: calc(100vh - 282px);
+  height: calc(100vh - 342px);
 }
 
 .object-position {
@@ -55,6 +55,10 @@
 .variant-option:checked + label {
   background-color: #000;
   color: #fff;
+}
+
+.swiper-wrapper {
+  gap: 24px;
 }
 
 .accepts-marketing {

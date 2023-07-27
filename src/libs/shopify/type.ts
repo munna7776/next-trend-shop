@@ -112,6 +112,11 @@ export type CartItemLine = {
     }
 }
 
+export type CartDiscountCode = {
+    code: string;
+    applicable: boolean;
+}
+
 export type ShopifyCart = {
     id: string;
     checkoutUrl: string;
@@ -120,6 +125,7 @@ export type ShopifyCart = {
         totalAmount: Price;
         totalTaxAmount: Price;
     };
+    discountCodes: CartDiscountCode[];
     lines: Connection<CartItemLine>;
     totalQuantity: number;
 }
@@ -180,6 +186,15 @@ export type ShopifyAddToCartReturnType = {
     data: {
         cartLinesAdd: {
             cart: ShopifyCart
+        }
+    }
+}
+
+export type ShopifyCartDiscountUpdatesReturnType = {
+    data: {
+        cartDiscountCodesUpdate: {
+            cart: ShopifyCart,
+            userErrors: CustomerUserErrors[]
         }
     }
 }

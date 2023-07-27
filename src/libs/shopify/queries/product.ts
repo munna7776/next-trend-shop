@@ -93,4 +93,13 @@ ${priceFragment}
 ${imageFragment}
 ${seoFragment}
 ${pageInfoFragment}
+`;
+
+export const productRecommendationsQuery = `
+query GetProductRecommendations($productId: ID!) {
+  productRecommendations(productId: $productId) {
+    ...product
+  }
+}
+${miniProductFragment}
 `

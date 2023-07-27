@@ -7,6 +7,7 @@ import CartItemQuantity from "./cart-item-quantity";
 
 const CartItem = ({ line }: { line: CartItemLine }) => {
   const selectedOtions = line.merchandise.selectedOptions
+    .filter(option => option.value !== "Default Title")
     .map((option) => `${option.name}: ${option.value}`)
     .join(" , ");
   return (
@@ -15,9 +16,9 @@ const CartItem = ({ line }: { line: CartItemLine }) => {
         <Image
           src={line.merchandise.image.url}
           alt={line.merchandise.image.url}
-          width={90}
-          height={110}
-          className="h-[110px] rounded-md"
+          width={200}
+          height={200}
+          className="h-[110px] w-[90px] rounded-md object-cover"
         />
       </Link>
       <div className="flex flex-col">

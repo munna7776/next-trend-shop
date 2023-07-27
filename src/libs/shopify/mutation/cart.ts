@@ -43,3 +43,13 @@ mutation CartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
 }
 ${cartFragment}
 `
+export const cartDiscountCodesUpdateMuation = `
+mutation CartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]) {
+  cartDiscountCodesUpdate(cartId: $cartId,discountCodes:$discountCodes){
+    cart {
+      ...cart
+    }
+  }
+}
+${cartFragment}
+`
