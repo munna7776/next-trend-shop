@@ -18,6 +18,7 @@ const ProductImages = ({images}: {images: ImageType[]}) => {
                         alt={image.url}
                         width={image.width}
                         height={image.height}
+                        priority
                         className="h-full w-[70%] mx-auto rounded-lg"
                     />
                 </div>
@@ -41,6 +42,7 @@ const ProductImages = ({images}: {images: ImageType[]}) => {
                                     width={image.width}
                                     height={300}
                                     className="w-[70%] mx-auto"
+                                    priority
                                 />
                             </SwiperSlide>
                         )

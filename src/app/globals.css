@@ -57,10 +57,6 @@
   color: #fff;
 }
 
-.swiper-wrapper {
-  gap: 24px;
-}
-
 .accepts-marketing {
   appearance: none;
   --webkit-appearance: none;
@@ -76,6 +72,13 @@
   rotate: 45deg;
   left: 37%;
   top: 8%;
+}
+
+.image-container::before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  @apply bg-slate-200 rounded-t-xl absolute;
 }
 
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {

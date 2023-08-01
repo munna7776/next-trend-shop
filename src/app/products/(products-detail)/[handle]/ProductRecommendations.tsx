@@ -14,6 +14,7 @@ const ProductRecommendations = async({products}: {products: ShopifyCollectionPro
         slidesPerView="auto"
         autoplay={{delay: 2500}}
         className="px-6 pb-5 pt-1"
+        spaceBetween={24}
       >
         {
             products.map((product) => {

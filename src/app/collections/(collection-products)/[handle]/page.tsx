@@ -1,14 +1,13 @@
-import ProductLists from '@/components/ProductLists'
-import { getCollectionProducts } from '@/libs/shopify'
-import Image from 'next/image'
-import React from 'react'
+import Image from "next/image";
+import ProductLists from "@/components/ProductLists"
+import { getImage } from "@/libs/image"
+import { getCollectionProducts } from "@/libs/shopify"
 
 const Page = async({params}: {params: { handle: string }}) => {
 
-  await new Promise((resolve) => setTimeout(resolve,10000000000))
-  const result = await getCollectionProducts({handle:params.handle, first: 10})
+  const {title,description, collectionImage, products} = await getCollectionProducts({handle:params.handle, first: 50})
 
-  const {title,description, collectionImage, products} = result
+  const  {base64, img: { src }} = await getImage(collectionImage.url)
 
   return (
     <>
@@ -19,11 +18,13 @@ const Page = async({params}: {params: { handle: string }}) => {
         </div>
         <div id="collection-image" className="w-full md:w-4/5 lg:w-[40%] rounded-lg h-[300px]" >
           <Image 
-            src={collectionImage.url}
+            src={src}
             alt={collectionImage.altText}
             width={collectionImage.width}
             height={300}
-            className="w-full h-full relative md:rounded-lg"
+            placeholder="blur"
+            blurDataURL={base64}
+            className="w-full h-full relative md:rounded-lg transition-all duration-300"
           />
         </div>
       </div>
