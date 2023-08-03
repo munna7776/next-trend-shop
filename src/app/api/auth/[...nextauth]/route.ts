@@ -1,7 +1,5 @@
-import { authOptions } from "@/libs/nextauth-provider-options";
-import { createCustomerAccessToken, getCustomer } from "@/libs/shopify";
 import NextAuth from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
+import { authOptions } from "@/libs/nextauth-provider-options";
 
 const handler = NextAuth(authOptions)
 
