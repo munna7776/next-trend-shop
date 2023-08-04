@@ -22,7 +22,7 @@ export default function Error({
           <p className="p-3 text-sm font-medium rounded-full bg-[#ff00004f]">
             <ErrorIcon />
           </p>
-          <h1 className="mt-3 text-2xl font-semibold text-gray-800 dark:text-white md:text-3xl">
+          <h1 className="mt-3 text-2xl font-semibold text-[#333333] dark:text-white md:text-3xl">
             Something went wrong!
           </h1>
           <div className="flex flex-wrap justify-center items-center w-full mt-6 gap-3 shrink-0 sm:w-auto">
