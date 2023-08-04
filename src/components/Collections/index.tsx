@@ -26,7 +26,7 @@ const Collections = async () => {
                   fill
                   placeholder="blur"
                   blurDataURL={collectionsImagesWithPlaceholder[index].base64}
-                  className="rounded-lg h-full object-cover object-center transition-all origin-center duration-[200ms] hover:scale-110"
+                  className="rounded-lg h-full object-cover object-center transition-all origin-center duration-[2000ms] hover:scale-110"
                 />
             </div>
             <Link

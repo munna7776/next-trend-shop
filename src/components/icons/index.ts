@@ -7,3 +7,4 @@ export { default as EmailIcon } from "./email-icon";
 export { default as PhoneIcon } from "./phone-icon";
 export { default as AddressIcon } from "./address-icon";
 export { default as EditIcon } from "./edit-icon";
+export { default as ErrorIcon } from "./error-icon";
