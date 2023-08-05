@@ -10,7 +10,7 @@ const Page = async ({
     [key: string]: string | string[];
   };
 }) => {
-  const { collections } = await getCollections({ first: 20 });
+  const { collections } = await getCollections({ first: 1 });
   const collectionsImagesWithPlaceholder = await Promise.all(
     collections.map(async (collection) => {
       const {

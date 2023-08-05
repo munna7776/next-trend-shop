@@ -16,6 +16,8 @@ const Collections = async () => {
   //     return { base64, src };
   //   })
   // );
+  const res = await fetch(collections[0].image.url)
+  console.log(res)
   // console.log(collectionsImagesWithPlaceholder)
   return (
     <>
