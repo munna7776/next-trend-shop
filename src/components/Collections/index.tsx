@@ -2,10 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { getCollections } from "@/libs/shopify";
 import { getImage } from "@/libs/image";
+import ConsoleClient from "../ConsoleClient";
 
 const Collections = async () => {
   const { collections } = await getCollections({ first: 4 });
-  console.log(collections)
+  // console.log(collections)
   const collectionsImagesWithPlaceholder = await Promise.all(
     collections.map(async (collection) => {
       const {
@@ -15,8 +16,9 @@ const Collections = async () => {
       return { base64, src };
     })
   );
-  console.log(collectionsImagesWithPlaceholder)
+  // console.log(collectionsImagesWithPlaceholder)
   return (
+    <>
     <ul className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-10 mt-4">
       {collections.map((collection, index) => {
         return (
@@ -41,6 +43,8 @@ const Collections = async () => {
         );
       })}
     </ul>
+    <ConsoleClient collections={collections} placeholders={collectionsImagesWithPlaceholder} />
+    </>
   );
 };
 
