@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getCollections } from "@/libs/shopify";
 import { getImage } from "@/libs/image";
 
+export const runtime = "edge"
+
 const Page = async ({
   searchParams,
 }: {
