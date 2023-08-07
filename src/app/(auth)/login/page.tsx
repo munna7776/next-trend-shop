@@ -74,7 +74,7 @@ const Page = () => {
             className="my-6" 
           />
           <Link className="block w-full text-center text-lg text-[#24242e]" href="/forgot-password" >Forgot your password?</Link>
-          <button type="submit" className="bg-[#212323] grid place-items-center my-4 relative text-white w-full py-3 text-lg rounded-md">
+          <button type="submit" disabled={loading} className="bg-[#212323] grid place-items-center my-4 relative text-white w-full py-3 text-lg rounded-md">
           { loading ? <span className="inline-block h-[28px] w-[28px] border-t-2 border-r-2 border-white rounded-3xl animate-spin"  /> : "Sign in" }
           </button>
           <Link className="block w-full text-center text-lg text-[#24242e]" href="/register" >{"Don't have an account? "}<span className="underline whitespace-nowrap" >Sign up</span> here</Link>

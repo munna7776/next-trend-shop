@@ -94,4 +94,28 @@ mutation CustomerAddressCreate($address: MailingAddressInput!, $token: String!) 
   }
 }
 ${addressFragment("customerAddress")}
-`
+`;
+
+export const customerRecoverMutation = `
+mutation customerRecover($email: String!) {
+  customerRecover(email: $email) {
+    customerUserErrors {
+      message
+      code
+      field
+    }
+  }
+}
+`;
+
+export const customerResetByURLMutation = `
+mutation customerResetByUrl($password: String!, $resetUrl: URL!) {
+  customerResetByUrl(password: $password, resetUrl: $resetUrl) {
+    customerUserErrors {
+      message
+      code
+      field
+    }
+  }
+}
+`;

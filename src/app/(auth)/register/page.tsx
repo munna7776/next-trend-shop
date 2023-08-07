@@ -147,6 +147,7 @@ const Page = () => {
           </div>
           <button
             type="submit"
+            disabled={loading}
             className="bg-[#212323] grid place-items-center my-4 text-white w-full py-3 text-lg text-center rounded-md"
           >
             { loading ? <span className="inline-block h-[28px] w-[28px] border-t-2 border-r-2 border-white rounded-3xl animate-spin"  /> : "Sign up" }
