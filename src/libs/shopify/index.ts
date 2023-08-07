@@ -66,6 +66,7 @@ export const getCollections = async(variables: ShopifyCollectionsVariables) => {
     const res = await shopifyFetch<ShopifyCollectionsReturnType,ShopifyCollectionsVariables>({
         query: getCollectionsQuery,
         variables: variables,
+        cache: "no-store"
     })
 
     const collections = removeEdgesAndNodes(res?.data?.collections) as ShopifyCollection[]
@@ -101,6 +102,7 @@ export const getAllProducts = async(variables: ShopifyCollectionsVariables) => {
     const res = await shopifyFetch<ShopifyAllProductsReturnType, ShopifyCollectionsVariables>({
         query: getAllProductsQuery,
         variables,
+        cache: "no-store"
     })
 
     const products = removeEdgesAndNodes(res?.data?.products) as ShopifyCollectionProduct[]
