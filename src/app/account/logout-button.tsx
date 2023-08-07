@@ -9,7 +9,6 @@ const LogoutButton = () => {
 
   const handleLogout = async() => {
    const data = await signOut({redirect: false, callbackUrl: "/login"})
-   console.log(data)
    router.push(data.url)
   }
 

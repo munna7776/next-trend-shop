@@ -6,7 +6,6 @@ export const getImage = async (src: string) => {
   //   Buffer.from(await res.arrayBuffer())
   // );
   const res = await fetch(src)
-  console.log(res)
   const arrayBuffer = await res.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)
 

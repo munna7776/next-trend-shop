@@ -6,7 +6,7 @@ import Collections from "@/components/Collections";
 import { CollectionSkeleton } from "@/components/skeleton-loader";
 import FeaturedProducts, { FeaturedProductsSkeleton } from "@/components/FeaturedProducts";
 
-export default async function Home() {
+export default function Home() {
   return (
     <main>
       <Carousel />
