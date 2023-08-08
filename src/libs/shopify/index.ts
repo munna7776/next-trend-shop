@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { SHOPIFY_GRAPHQL_ENDPOINT } from "../const";
+import { SHOPIFY_GRAPHQL_ENDPOINT, TAGS } from "../const";
 import {
   addToCartMutation,
   cartCreateMutation,
@@ -14,6 +14,7 @@ import {
   customerAddressUpdateMutation,
   customerCreate,
   customerRecoverMutation,
+  customerResetByURLMutation,
 } from "./mutation/customer";
 import { getCartQuery } from "./queries/cart";
 import {
@@ -122,6 +123,7 @@ export const getCollections = async (
   >({
     query: getCollectionsQuery,
     variables: variables,
+    tags: [TAGS.collections]
   });
 
   const collections = removeEdgesAndNodes(
@@ -144,7 +146,7 @@ export const getCollectionProducts = async (
   >({
     query: getCollectionProductsQuery,
     variables: variables,
-    cache: "no-store",
+    tags: [TAGS.collections, TAGS.products]
   });
 
   const { title, description, image, products } = res?.data?.collection;
@@ -171,7 +173,7 @@ export const getAllProducts = async (
   >({
     query: getAllProductsQuery,
     variables,
-    cache: "no-store",
+    tags: [TAGS.products]
   });
 
   const products = removeEdgesAndNodes(
@@ -188,7 +190,7 @@ export const getProductDetails = async (handle: string) => {
   const res = await shopifyFetch<ShopifyProductReturnType, { handle: string }>({
     query: getProductDetailsQuery,
     variables: { handle },
-    cache: "no-store",
+    tags: [TAGS.products]
   });
 
   const variants = removeEdgesAndNodes(
@@ -210,7 +212,7 @@ export const getProductRecommendations = async (productId: string) => {
   >({
     query: productRecommendationsQuery,
     variables: { productId },
-    cache: "no-store",
+    tags: [TAGS.products],
   });
 
   return res.data.productRecommendations;
@@ -258,6 +260,7 @@ export const addToCart = async (
       cartId,
       lines,
     },
+    cache: "no-store",
   });
 
   const cartLines = removeEdgesAndNodes(
@@ -287,6 +290,7 @@ export const updateCart = async (
       cartId,
       lines,
     },
+    cache: "no-store",
   });
 
   const cartLines = removeEdgesAndNodes(
@@ -309,6 +313,7 @@ export const removeCart = async (cartId: string, lineIds: string[]) => {
       cartId,
       lineIds,
     },
+    cache: "no-store",
   });
 
   const cartLines = removeEdgesAndNodes(
@@ -449,6 +454,7 @@ export const customerAddressCreate = async (variables: {
   >({
     query: customerAddressCreateMuation,
     variables: variables,
+    cache: "no-store",
   });
 
   return res.data.customerAddressCreate;
@@ -465,6 +471,7 @@ export const customerAddressUpdate = async (variables: {
   >({
     query: customerAddressUpdateMutation,
     variables,
+    cache: "no-store",
   });
   return res.data.customerAddressUpdate;
 };
@@ -473,6 +480,7 @@ export const getCustomerOrder = async (orderId: string) => {
   const res = await shopifyFetch<ShopifyCustomerOrder, { orderId: string }>({
     query: orderQuery,
     variables: { orderId },
+    cache: "no-store",
   });
 
   const { lineItems } = res.data.node;
@@ -491,6 +499,7 @@ export const customerRecover = async (email: string) => {
   >({
     query: customerRecoverMutation,
     variables: { email },
+    cache: "no-store",
   });
 
   return res.data.customerRecover.customerUserErrors
@@ -501,8 +510,9 @@ export const customerResetByURL = async (password: string, resetUrl: string) => 
     { data: { customerResetByUrl: { customerUserErrors: CustomerUserErrors[] } } },
     {password: string, resetUrl: string }
   >({
-    query: customerRecoverMutation,
+    query: customerResetByURLMutation,
     variables: { password, resetUrl },
+    cache: "no-store",
   });
 
   return res.data.customerResetByUrl.customerUserErrors

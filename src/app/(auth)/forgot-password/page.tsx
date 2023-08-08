@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-import trend from "../../../../public/images/trend-7-image.jpg";
+import trend from "../../../../public/images/trend-7-image.webp";
 import logo from "../../../../public/next-shop-logo.png";
 import { Input } from "@/components/UI";
 import { validationRules } from "@/libs/const";

@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import trend1 from "../../../public/images/trend-1-image.jpg"
-import trend2 from "../../../public/images/trend_2_image.jpg"
-import trend3 from "../../../public/images/trend_3_image.jpg"
-import trend4 from "../../../public/images/trend-4-image.jpg"
+import trend1 from "../../../public/images/trend-1-image.webp";
+import trend2 from "../../../public/images/trend_2_image.webp";
+import trend3 from "../../../public/images/trend_3_image.webp";
+import trend4 from "../../../public/images/trend-4-image.webp";
 
 const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);

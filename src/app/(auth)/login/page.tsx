@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { signIn } from "next-auth/react"
-import trend from "../../../../public/images/trend-7-image.jpg";
+import trend from "../../../../public/images/trend-7-image.webp";
 import logo from "../../../../public/next-shop-logo.png";
 import { Input } from "@/components/UI";
 import { validationRules } from "@/libs/const";

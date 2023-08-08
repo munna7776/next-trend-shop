@@ -41,3 +41,8 @@ export const validationRules: Record<Field, RegisterOptions> = {
         }
     }   
 } as const
+
+export const TAGS = {
+    collections: "collections",
+    products: "products"
+} as const
