@@ -13,6 +13,7 @@ import {
   customerAddressDelete,
   customerAddressUpdateMutation,
   customerCreate,
+  customerDefaultAddressUpdateMutaion,
   customerRecoverMutation,
   customerResetByURLMutation,
 } from "./mutation/customer";
@@ -54,6 +55,7 @@ import {
   ShopifyCustomerAccessTokenVariable,
   ShopifyCustomerAddressCreate,
   ShopifyCustomerAddressUpdate,
+  ShopifyCustomerDefaultAddressUpdate,
   ShopifyCustomerOrder,
   ShopifyGetCartReturnType,
   ShopifyProductReturnType,
@@ -94,7 +96,6 @@ export const shopifyFetch = async <T, U extends unknown>({
       }),
       ...(tags && { next: { tags } }),
     });
-
     const result = await res.json();
     if (result.errors) {
       throw {
@@ -123,7 +124,7 @@ export const getCollections = async (
   >({
     query: getCollectionsQuery,
     variables: variables,
-    tags: [TAGS.collections]
+    tags: [TAGS.collections],
   });
 
   const collections = removeEdgesAndNodes(
@@ -146,7 +147,7 @@ export const getCollectionProducts = async (
   >({
     query: getCollectionProductsQuery,
     variables: variables,
-    tags: [TAGS.collections, TAGS.products]
+    tags: [TAGS.collections, TAGS.products],
   });
 
   const { title, description, image, products } = res?.data?.collection;
@@ -173,7 +174,7 @@ export const getAllProducts = async (
   >({
     query: getAllProductsQuery,
     variables,
-    tags: [TAGS.products]
+    tags: [TAGS.products],
   });
 
   const products = removeEdgesAndNodes(
@@ -190,7 +191,7 @@ export const getProductDetails = async (handle: string) => {
   const res = await shopifyFetch<ShopifyProductReturnType, { handle: string }>({
     query: getProductDetailsQuery,
     variables: { handle },
-    tags: [TAGS.products]
+    tags: [TAGS.products],
   });
 
   const variants = removeEdgesAndNodes(
@@ -445,23 +446,25 @@ export const deleteCustomerAddress = async (variables: {
 };
 
 export const customerAddressCreate = async (variables: {
-  address: MailingAddressInput;
+  address: Omit<MailingAddressInput, "checked">;
   token: string;
 }) => {
   const res = await shopifyFetch<
     ShopifyCustomerAddressCreate,
-    { address: MailingAddressInput; token: string }
+    typeof variables
   >({
     query: customerAddressCreateMuation,
     variables: variables,
     cache: "no-store",
   });
-
-  return res.data.customerAddressCreate;
+  return {
+    id: res.data.customerAddressCreate.customerAddress?.id,
+    errors: res.data.customerAddressCreate.customerUserErrors
+  }
 };
 
 export const customerAddressUpdate = async (variables: {
-  address: MailingAddressInput;
+  address: Omit<MailingAddressInput, "checked">;
   id: string;
   token: string;
 }) => {
@@ -473,7 +476,25 @@ export const customerAddressUpdate = async (variables: {
     variables,
     cache: "no-store",
   });
-  return res.data.customerAddressUpdate;
+  return {
+    id: res.data.customerAddressUpdate.customerAddress?.id,
+    errors: res.data.customerAddressUpdate.customerUserErrors
+  };
+};
+
+export const customerDefaultAddressUpdate = async (
+  addressId: string,
+  token: string
+) => {
+  const res = await shopifyFetch<
+    ShopifyCustomerDefaultAddressUpdate,
+    { addressId: string; token: string }
+  >({
+    query: customerDefaultAddressUpdateMutaion,
+    variables: { addressId, token },
+    cache: "no-store"
+  });
+  return res.data.customerDefaultAddressUpdate.customerUserErrors
 };
 
 export const getCustomerOrder = async (orderId: string) => {
@@ -502,18 +523,25 @@ export const customerRecover = async (email: string) => {
     cache: "no-store",
   });
 
-  return res.data.customerRecover.customerUserErrors
+  return res.data.customerRecover.customerUserErrors;
 };
 
-export const customerResetByURL = async (password: string, resetUrl: string) => {
+export const customerResetByURL = async (
+  password: string,
+  resetUrl: string
+) => {
   const res = await shopifyFetch<
-    { data: { customerResetByUrl: { customerUserErrors: CustomerUserErrors[] } } },
-    {password: string, resetUrl: string }
+    {
+      data: {
+        customerResetByUrl: { customerUserErrors: CustomerUserErrors[] };
+      };
+    },
+    { password: string; resetUrl: string }
   >({
     query: customerResetByURLMutation,
     variables: { password, resetUrl },
     cache: "no-store",
   });
 
-  return res.data.customerResetByUrl.customerUserErrors
+  return res.data.customerResetByUrl.customerUserErrors;
 };

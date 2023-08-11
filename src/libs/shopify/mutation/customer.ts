@@ -1,5 +1,4 @@
 import { customerFragment } from "../fragment/customer";
-import { addressFragment } from "../queries/customer";
 
 export const customerCreate = `
 mutation CustomerCreate($input: CustomerCreateInput!) {
@@ -35,12 +34,9 @@ mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
 }
 `
 
-export const customerDefaultAddressUpdate = `
+export const customerDefaultAddressUpdateMutaion = `
 mutation CustomerDefaultAddressUpdate($token: String!, $addressId: ID!) {
   customerDefaultAddressUpdate(customerAccessToken: $token, addressId: $addressId) {
-    customer {
-      ...customer
-    }
     customerUserErrors {
       code
       field
@@ -48,7 +44,6 @@ mutation CustomerDefaultAddressUpdate($token: String!, $addressId: ID!) {
     }
   }
 }
-${customerFragment}
 `
 
 export const customerAddressDelete = `
@@ -68,7 +63,7 @@ export const customerAddressUpdateMutation = `
 mutation CustomerAddressUpdate($token: String!, $id: ID!, $address: MailingAddressInput!) {
   customerAddressUpdate(customerAccessToken: $token, id: $id, address: $address) {
     customerAddress {
-      ...address
+      id
     }
     customerUserErrors {
       message
@@ -77,14 +72,13 @@ mutation CustomerAddressUpdate($token: String!, $id: ID!, $address: MailingAddre
     }
   }
 }
-${addressFragment("address")}
 `
 
 export const customerAddressCreateMuation = `
 mutation CustomerAddressCreate($address: MailingAddressInput!, $token: String!) {
   customerAddressCreate(address: $address, customerAccessToken: $token) {
     customerAddress {
-      ...customerAddress
+      id
     }
     customerUserErrors {
       message
@@ -93,7 +87,6 @@ mutation CustomerAddressCreate($address: MailingAddressInput!, $token: String!) 
     }
   }
 }
-${addressFragment("customerAddress")}
 `;
 
 export const customerRecoverMutation = `

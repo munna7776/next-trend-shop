@@ -17,7 +17,8 @@ const AddNewAddress = () => {
             <AddOrEditAddress 
               isAdd
               buttonText="Add an address"
-              buttonTextWhileSubmitting="Adding..." 
+              buttonTextWhileSubmitting="Adding..."
+              onCloseDrawer={() => setShowAddressDrawer(false)} 
             />
         </Drawer>
       )}

@@ -87,8 +87,13 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
   margin: 0;
 }
 
-input[type=number]{
+input[type="number"]{
   -moz-appearance: textfield;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: #000;
+  border-radius: 6px;
 }
 
 .box-shadow {

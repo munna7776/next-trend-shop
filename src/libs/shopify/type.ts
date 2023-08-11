@@ -227,7 +227,7 @@ export type MailingAddress = {
     zip: string;
 }
 
-export type MailingAddressInput = Omit<MailingAddress , "countryCodeV2" | "formatted" | "formattedArea" | "id" | "name" | "provinceCode">
+export type MailingAddressInput = Omit<MailingAddress , "countryCodeV2" | "formatted" | "formattedArea" | "id" | "name" | "provinceCode"> & { checked: boolean }
 
 export type Attribute = {
     key: string;
@@ -359,7 +359,9 @@ export type ShopifyCustomerAccessTokenCreateReturnType = {
 export type ShopifyCustomerAddressCreate = {
     data: {
         customerAddressCreate: {
-            customerAddress: MailingAddress;
+            customerAddress:  {
+                id: string
+            }
             customerUserErrors: CustomerUserErrors[]
         }
     }
@@ -368,7 +370,17 @@ export type ShopifyCustomerAddressCreate = {
 export type ShopifyCustomerAddressUpdate = {
     data: {
         customerAddressUpdate: {
-            customerAddress: MailingAddress;
+            customerAddress: {
+                id: string
+            }
+            customerUserErrors: CustomerUserErrors[]
+        }
+    }
+}
+
+export type ShopifyCustomerDefaultAddressUpdate = {
+    data: {
+        customerDefaultAddressUpdate: {
             customerUserErrors: CustomerUserErrors[]
         }
     }

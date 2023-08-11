@@ -1,5 +1,5 @@
 import React, { useTransition } from "react";
-import { Input } from "../UI";
+import { Checkbox, Input } from "../UI";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MailingAddressInput } from "@/libs/shopify/type";
 import { createAddress, updateAddress } from "./action";
@@ -10,6 +10,7 @@ type Props = {
     mailingAddress?: MailingAddressInput;
     buttonText: string;
     buttonTextWhileSubmitting: string;
+    onCloseDrawer: () => void;
 } & ({ isAdd: true } | { isAdd: false, addressId: string })
 
 const AddOrEditAddress = ({ mailingAddress, buttonText, buttonTextWhileSubmitting, ...props }: Props) => {
@@ -25,6 +26,7 @@ const AddOrEditAddress = ({ mailingAddress, buttonText, buttonTextWhileSubmittin
       phone: mailingAddress?.phone ?? "",
       province: mailingAddress?.province ?? "",
       zip: mailingAddress?.zip ?? "",
+      checked: mailingAddress?.checked ?? false
     },
   });
   const [pending, startTransition] = useTransition()
@@ -38,6 +40,7 @@ const AddOrEditAddress = ({ mailingAddress, buttonText, buttonTextWhileSubmittin
         return;
       }
       toast.success(props.isAdd ? "Address successfully created." : "Address successfully updated.")
+      props.onCloseDrawer()
       router.refresh()
     })
   }
@@ -102,6 +105,11 @@ const AddOrEditAddress = ({ mailingAddress, buttonText, buttonTextWhileSubmittin
         labelText="Zip Code"
         placeholder="Postal code of the address..."
         name="zip"
+        register={register}
+      />
+      <Checkbox 
+        labelText="Set as default address"
+        name="checked"
         register={register}
       />
       <button

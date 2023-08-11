@@ -9,7 +9,7 @@ type InputProps<T> = {
   labelText?: string;
   placeholder?: string;
   name: Path<T extends FieldValues ? T : any>;
-  type?: "text" | "password" | "number";
+  type?: "text" | "password" | "number" | "checkbox";
   className?: string;
   register: UseFormRegister<T extends FieldValues ? T : any>;
   rules?: RegisterOptions;
