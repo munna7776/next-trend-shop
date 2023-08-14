@@ -2,6 +2,8 @@ import Image from "next/image";
 import ProductLists from "@/components/ProductLists"
 import { getCollectionProducts } from "@/libs/shopify"
 
+export const runtime = "edge"
+
 const Page = async({params}: {params: { handle: string }}) => {
 
   const {title,description, collectionImage, products} = await getCollectionProducts({handle:params.handle, first: 50})

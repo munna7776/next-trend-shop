@@ -1,9 +1,10 @@
-import { getProductDetails, getProductRecommendations } from '@/libs/shopify'
-import React, { Suspense } from 'react'
-import Product from './Product'
-import ProductImages from './ProductImages'
-import ProductVariants from './ProductVariants'
-import ProductRecommendations from './ProductRecommendations'
+import { getProductDetails, getProductRecommendations } from "@/libs/shopify"
+import Product from "./Product"
+import ProductImages from "./ProductImages"
+import ProductVariants from "./ProductVariants"
+import ProductRecommendations from "./ProductRecommendations"
+
+export const runtime = "edge"
 
 const Page = async({params}: {params: {handle:string}}) => {
   const res = await getProductDetails(params.handle)
