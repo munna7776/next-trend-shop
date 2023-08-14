@@ -39,7 +39,7 @@ const CartButton = ({
 
   return (
     <>
-      <button onClick={() => setShowCartDrawer(true)} className="relative">
+      <button aria-label="open cart" onClick={() => setShowCartDrawer(true)} className="relative">
         <CartIcon />
         {cart.totalQuantity > 0 && (
           <span className="absolute -top-3 -right-3 h-6 w-6 rounded-[50%] font-light bg-black text-white">

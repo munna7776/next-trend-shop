@@ -51,7 +51,7 @@ const MobileNav = ({onClick}: {onClick: () => void;}) => {
       <>
           <div onClick={onClick} className="absolute left-0 top-0 overflow-hidden w-screen h-screen z-[9999] bg-[#0003] backdrop-blur-[10px]" />
           <div className={`fixed top-0 left-0 z-[9999] rounded-r-lg p-[30px] w-full max-w-[300px] bg-[#fbf9f9] h-screen overflow-hidden mobile-nav `} >
-            <button className="mb-10" onClick={onClick} >
+            <button aria-label="open sidebar menu" className="mb-10" onClick={onClick} >
               <svg
                 className="opacity-20"
                 width="24"
@@ -68,16 +68,16 @@ const MobileNav = ({onClick}: {onClick: () => void;}) => {
             </button>
             <ul className="flex flex-col gap-[10px] text-[#3c3c3c]" >
               <li>
-                <Link className="text-[18px] uppercase font-semibold opacity-70" href="/" onClick={onClick}>Home</Link>
+                <Link aria-label="Home page" className="text-[18px] uppercase font-semibold opacity-70" href="/" onClick={onClick}>Home</Link>
               </li>
               <li>
-                <Link className="text-[18px] uppercase font-semibold opacity-70" href="/products/all" onClick={onClick}>Shop</Link>
+                <Link aria-label="All products page" className="text-[18px] uppercase font-semibold opacity-70" href="/products/all" onClick={onClick}>Shop</Link>
               </li>
               <li>
-                <Link className="text-[18px] uppercase font-semibold opacity-70" href="/collections/all" onClick={onClick}>Collections</Link>
+                <Link aria-label="All collections page" className="text-[18px] uppercase font-semibold opacity-70" href="/collections/all" onClick={onClick}>Collections</Link>
               </li>
               <li>
-                <Link className="text-[18px] uppercase font-semibold opacity-70" href="/contact" onClick={onClick}>Contact</Link>
+                <Link aria-label="Contact page" className="text-[18px] uppercase font-semibold opacity-70" href="/contact" onClick={onClick}>Contact</Link>
               </li>
             </ul>
           </div>

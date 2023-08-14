@@ -26,6 +26,7 @@ const Carousel = () => {
     <section className="relative overflow-hidden h-[60vh]">
       <button
         onClick={handleNextSlide}
+        aria-label="next slide"
         className={`absolute right-5 top-2/4 -translate-y-2/4 z-10 ${ activeIndex === 2 ? "hidden" : "" }`}
       >
         <svg width="7" height="14" className="text-white" aria-hidden="true">
@@ -41,6 +42,7 @@ const Carousel = () => {
       </button>
       <button
         onClick={handlePrevSlide}
+        aria-label="previous slide"
         className={`absolute left-5 top-2/4 -translate-y-2/4 z-10 ${ activeIndex === 0 ? "hidden" : "" }`}
       >
         <svg
@@ -66,7 +68,7 @@ const Carousel = () => {
             alt="trend-image"
             width={1920}
             height={400}
-            loading="lazy"
+            priority
             className="h-full block w-full md:hidden"
           />
           <Image
@@ -74,7 +76,7 @@ const Carousel = () => {
             alt="trend-image"
             width={1920}
             height={400}
-            loading="lazy"
+            priority
             className="h-full w-full hidden md:block"
           />
           <div className="absolute z-10 left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 flex flex-col gap-y-[10px] items-center text-white">

@@ -9,6 +9,10 @@ import { Order, OrderLineItem } from "@/libs/shopify/type";
 import { statusMessage } from "@/libs/utils";
 import AddressBook from "./Address";
 
+export const metadata = {
+  title: "Next Trend Shop - Account"
+}
+
 const Page = async () => {
   const session = await getServerSession(authOptions);
   if (!session) {

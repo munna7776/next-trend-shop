@@ -8,3 +8,7 @@ export { default as PhoneIcon } from "./phone-icon";
 export { default as AddressIcon } from "./address-icon";
 export { default as EditIcon } from "./edit-icon";
 export { default as ErrorIcon } from "./error-icon";
+export { default as VisaIcon } from "./visa-icon";
+export { default as MasterCardIcon } from "./master-card-icon";
+export { default as PayPalIcon } from "./paypal-icon";
+export { default as RightChevronIcon } from "./right-chevron-icon";

@@ -6,6 +6,11 @@ import Collections from "@/components/Collections";
 import { CollectionSkeleton } from "@/components/skeleton-loader";
 import FeaturedProducts, { FeaturedProductsSkeleton } from "@/components/FeaturedProducts";
 
+export const metadata = {
+  title: "Next Trend Shop",
+  description: "Next Trend Shop is an online store built using shopify and next js.",
+}
+
 export default async function Home() {
   return (
     <main>

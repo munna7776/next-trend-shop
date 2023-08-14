@@ -3,6 +3,12 @@ import ProductLists from "@/components/ProductLists"
 import { getImage } from "@/libs/image"
 import { getCollectionProducts } from "@/libs/shopify"
 
+export async function generateMetadata({params}: {params: { handle: string }}) {
+  const {title,description} = await getCollectionProducts({handle:params.handle, first: 1})
+
+  return {title, description}
+}
+
 const Page = async({params}: {params: { handle: string }}) => {
 
   const {title,description, collectionImage, products} = await getCollectionProducts({handle:params.handle, first: 50})

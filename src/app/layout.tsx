@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import "swiper/css"
 import "swiper/css/pagination";
 import { ToastContainer } from 'react-toastify';
@@ -11,9 +12,14 @@ import AuthProvider from "@/provider/auth-provider";
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata = {
-  title: "Next Trend Shop",
-  description: "Next Trend Shop is an online store built using shopify and next js.",
+const baseURL = process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : "http://localhost:3000"
+
+export const metadata: Metadata = {
+  metadataBase: new URL(baseURL),
+  robots: {
+    index: true,
+    follow: true
+  }
 }
 
 export default function RootLayout({

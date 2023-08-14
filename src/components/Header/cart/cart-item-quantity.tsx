@@ -30,7 +30,7 @@ const CartItemQuantity = ({quantity,lineId,merchandiseId}: {
         method: "PUT",
         body: JSON.stringify({lineId,merchandiseId,quantity: quantityInputRef.current.valueAsNumber})
     })
-    const data = await res.json()
+    await res.json()
     setLoading(false)
     startTransition(() => router.refresh())
    }
@@ -69,7 +69,7 @@ const CartItemQuantity = ({quantity,lineId,merchandiseId}: {
     <div className="flex items-center justify-between gap-2 mt-2">
         <label className="font-medium hidden" >Quantity</label>
         <div className="flex items-center gap-2" >
-          <button disabled={isUpdatingOrDeleting} onClick={handleDecreaseQuantity} className="disabled:cursor-not-allowed" >
+          <button aria-label="Decrease item quantity in cart" disabled={isUpdatingOrDeleting} onClick={handleDecreaseQuantity} className="disabled:cursor-not-allowed" >
             <MinusIcon />
           </button>
           <input
@@ -81,10 +81,10 @@ const CartItemQuantity = ({quantity,lineId,merchandiseId}: {
             className="w-10 text-center bg-transparent focus:outline-none"
             ref={quantityInputRef}
           />
-          <button disabled={isUpdatingOrDeleting} onClick={handleIncreaseQuantity}  >
+          <button aria-label="Increase item quantity in cart" disabled={isUpdatingOrDeleting} onClick={handleIncreaseQuantity}  >
             <PlusIcon />
           </button>
-          <button className="disabled:cursor-not-allowed" disabled={isUpdatingOrDeleting} onClick={handleDeleteCartItem} >
+          <button aria-label="Delete item from cart" className="disabled:cursor-not-allowed" disabled={isUpdatingOrDeleting} onClick={handleDeleteCartItem} >
             <DeleteIcon />
           </button>
           { isUpdatingOrDeleting && <span className="inline-block h-6 w-6 border-t-2 border-r-2 border-black rounded-3xl animate-spin"  /> }

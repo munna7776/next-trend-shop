@@ -27,13 +27,13 @@ const Header = async () => {
         </Link>
       </div>
       <nav className="hidden md:flex gap-[30px]">
-        <Link href="/">Home</Link>
-        <Link href="/products/all">Shop</Link>
-        <Link href="/collections/all">Collections</Link>
-        <Link href="/contact">Contact</Link>
+        <Link aria-label="Home page" href="/">Home</Link>
+        <Link aria-label="All products page" href="/products/all">Shop</Link>
+        <Link aria-label="All collections page" href="/collections/all">Collections</Link>
+        <Link aria-label="Contact page" href="/contact">Contact</Link>
       </nav>
       <div className="flex items-center gap-3">
-        <Link href={session ? "/account" : "/login"}>
+        <Link aria-label="Account page" href={session ? "/account" : "/login"}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"

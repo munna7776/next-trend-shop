@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getCollections } from "@/libs/shopify";
 import { getImage } from "@/libs/image";
 
+
 const Page = async ({
   searchParams,
 }: {
