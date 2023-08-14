@@ -1,19 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getCollections } from "@/libs/shopify";
-import { getImage } from "@/libs/image";
 
 const Collections = async () => {
   const { collections } = await getCollections({ first: 4 });
-  const collectionsImagesWithPlaceholder = await Promise.all(
-    collections.map(async (collection) => {
-      const {
-        base64,
-        img: { src },
-      } = await getImage(collection.image.url);
-      return { base64, src };
-    })
-  );
   return (
     <ul className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-10 mt-4">
       {collections.map((collection, index) => {
@@ -21,11 +11,9 @@ const Collections = async () => {
           <li key={index} className="grid h-[350px] rounded-lg overflow-hidden">
             <div className="row-start-1 row-end-2 col-start-1 col-end-2 relative h-full overflow-hidden">
                 <Image
-                  src={collectionsImagesWithPlaceholder[index].src}
+                  src={collection.image.url}
                   alt={collection.image.altText}
                   fill
-                  placeholder="blur"
-                  blurDataURL={collectionsImagesWithPlaceholder[index].base64}
                   className="rounded-lg h-full object-cover object-center transition-all origin-center duration-[2000ms] hover:scale-110"
                 />
             </div>

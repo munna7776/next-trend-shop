@@ -4,11 +4,8 @@ import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import Cart from "./cart";
 import { CartIcon } from "@/components/icons";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/nextauth-provider-options";
 
-const Header = async () => {
-  const session = await getServerSession(authOptions)
+const Header = () => {
   return (
     <header className="w-full p-4 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] sticky top-0 z-[100] flex justify-between items-center bg-white">
       <div className="flex gap-2">
@@ -33,7 +30,7 @@ const Header = async () => {
         <Link href="/contact">Contact</Link>
       </nav>
       <div className="flex items-center gap-3">
-        <Link href={session ? "/account" : "/login"}>
+        <Link href={"/account"}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"

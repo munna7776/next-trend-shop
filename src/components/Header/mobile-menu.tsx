@@ -47,6 +47,7 @@ const MobileMenu = () => {
 
 
 const MobileNav = ({onClick}: {onClick: () => void;}) => {
+
     return (
       <>
           <div onClick={onClick} className="absolute left-0 top-0 overflow-hidden w-screen h-screen z-[9999] bg-[#0003] backdrop-blur-[10px]" />

@@ -7,7 +7,6 @@ import "./globals.css"
 
 import { Inter } from "next/font/google"
 import Footer from "@/components/Footer"
-import AuthProvider from "@/provider/auth-provider";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,7 +23,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} overflow-x-hidden`}>
-        <AuthProvider>
           <Header />
         {children}
         <Footer />
@@ -40,7 +38,6 @@ export default function RootLayout({
           pauseOnHover
           theme="colored"
         />
-        </AuthProvider>
       </body>
     </html>
   )

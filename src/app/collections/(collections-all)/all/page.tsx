@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCollections } from "@/libs/shopify";
-import { getImage } from "@/libs/image";
+
+export const runtime = "edge"
 
 const Page = async ({
   searchParams,
@@ -11,15 +12,6 @@ const Page = async ({
   };
 }) => {
   const { collections } = await getCollections({ first: 20 });
-  const collectionsImagesWithPlaceholder = await Promise.all(
-    collections.map(async (collection) => {
-      const {
-        base64,
-        img: { src },
-      } = await getImage(collection.image.url);
-      return { base64, src };
-    })
-  );
   return (
     <section>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-4">
@@ -31,11 +23,9 @@ const Page = async ({
             >
               <div className="row-start-1 row-end-2 col-start-1 col-end-2 relative h-full overflow-hidden">
                 <Image
-                  src={collectionsImagesWithPlaceholder[index].src}
+                  src={collection.image.url}
                   alt={collection.image.altText}
                   fill
-                  placeholder="blur"
-                  blurDataURL={collectionsImagesWithPlaceholder[index].base64}
                   className="rounded-lg h-full object-cover object-center transition-transform origin-center duration-[8000ms] hover:scale-125"
                 />
               </div>
