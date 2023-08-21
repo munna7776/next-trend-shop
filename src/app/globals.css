@@ -100,6 +100,10 @@ input[type="checkbox"]:checked {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.product-card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(325px,1fr));
+}
+
 .product-grid, .skeleton-grid {
   grid-template-columns: repeat(3, 325px);
 }
@@ -114,11 +118,23 @@ input[type="checkbox"]:checked {
   grid-column: span 2;
 }
 
+
+
 @media(max-width: 768px) {
   .images-grid {
     display: none;
   }
+  .product-card-grid {
+    grid-template-columns: repeat(auto-fit,minmax(225px,1fr));
+  }
 }
+
+@media(max-width: 515px) {
+  .product-card-grid {
+    grid-template-columns: repeat(auto-fit,minmax(156px,1fr));
+  }
+}
+
 
 @media (max-width: 1280px) {
   .product-grid {

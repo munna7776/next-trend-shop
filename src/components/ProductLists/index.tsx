@@ -7,14 +7,13 @@ const ProductLists = forwardRef<
   { products: ShopifyCollectionProduct[] }
 >(function ProductLists({ products }, ref) {
   return (
-    <ul className="my-8 grid gap-6 justify-center product-grid">
+    <ul className="my-8 grid gap-4 product-card-grid">
       {products.map((product, index) => {
         return (
           <Product 
             key={product.id}
             ref={products.length === index + 1 ? ref : undefined}
             product={product}
-            className="min-w-[325px] xl:w-[325px]"
           />
         );
       })}
