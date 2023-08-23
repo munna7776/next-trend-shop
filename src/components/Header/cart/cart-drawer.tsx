@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useTransition } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -10,12 +12,15 @@ import { Input } from "@/components/UI";
 import { applyDiscountCode } from "./action";
 
 const CartDrawer = ({ onClick, cart }: { onClick: () => void; cart: Cart }) => {
+  const { data: session } = useSession();
+  const router = useRouter();
   const {
     cost: { subtotalAmount, totalAmount, totalTaxAmount },
     discountCodes,
   } = cart;
   const codes =
     discountCodes.map((discount) => discount.code).join(", ") || null;
+
   return (
     <>
       <div
@@ -75,12 +80,22 @@ const CartDrawer = ({ onClick, cart }: { onClick: () => void; cart: Cart }) => {
                 {moneyFormatter(totalAmount.currencyCode, totalAmount.amount)}
               </p>
             </div>
-            <a
-              href={cart.checkoutUrl}
-              className="block w-full rounded-lg p-3 text-center bg-black opacity-90 text-white font-semibold hover:opacity-100"
-            >
-              Proceed to checkout
-            </a>
+            {session?.user?.accessToken ? (
+              <a
+                href={cart.checkoutUrl}
+                className="block w-full rounded-lg p-3 text-center bg-black opacity-90 text-white font-semibold hover:opacity-100"
+              >
+                Proceed to checkout
+              </a>
+            ) : (
+              <Link
+                href="/login"
+                onClick={onClick}
+                className="block w-full rounded-lg p-3 text-center bg-black opacity-90 text-white font-semibold hover:opacity-100"
+              >
+                Proceed to checkout
+              </Link>
+            )}
           </>
         )}
       </div>
@@ -91,27 +106,29 @@ const CartDrawer = ({ onClick, cart }: { onClick: () => void; cart: Cart }) => {
 export default CartDrawer;
 
 const CodeDiscount = ({ codes }: { codes: string | null }) => {
-  const {register, handleSubmit} = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: {
-      discount: ""
-    }
-  })
-  const [pending, startTransition] = useTransition()
-  const router = useRouter()
+      discount: "",
+    },
+  });
+  const [pending, startTransition] = useTransition();
+  const router = useRouter();
 
-  const discountFormSubmitHandler: SubmitHandler<{discount: string}> = async(data) => {
-    if(data.discount.trim().length === 0) {
-      return toast.error("Please enter discount code!")
+  const discountFormSubmitHandler: SubmitHandler<{ discount: string }> = async (
+    data
+  ) => {
+    if (data.discount.trim().length === 0) {
+      return toast.error("Please enter discount code!");
     }
-    startTransition(async() => {
-      const result = await applyDiscountCode(data.discount)
-      if(result?.error) {
-        toast.error(result.error)
+    startTransition(async () => {
+      const result = await applyDiscountCode(data.discount);
+      if (result?.error) {
+        toast.error(result.error);
         return;
       }
-      router.refresh()
-    })
-  }
+      router.refresh();
+    });
+  };
 
   return (
     <div className={!codes ? "block" : "hidden"}>
