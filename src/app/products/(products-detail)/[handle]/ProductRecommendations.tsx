@@ -5,7 +5,7 @@ import { Autoplay } from "swiper";
 import Product from "@/components/UI/Product";
 import { ShopifyCollectionProduct } from "@/libs/shopify/type";
 
-const ProductRecommendations = async({products}: {products: ShopifyCollectionProduct[]}) => {
+const ProductRecommendations = ({products}: {products: ShopifyCollectionProduct[]}) => {
   
   return (
     <section>

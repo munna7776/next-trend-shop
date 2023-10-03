@@ -1,9 +1,13 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ShopifyProductVariant } from "@/libs/shopify/type";
 import { moneyFormatter } from "@/libs/utils";
 import ProductBuyButton from "./ProductBuyButton";
+
+const SIZE_VARIANT = "Size"
+const COLOR_VARIANT = "Color"
 
 const ProductVariants = ({
   options,
@@ -13,18 +17,23 @@ const ProductVariants = ({
   variants: ShopifyProductVariant[];
 }) => {
 
-  const [selectedProductOptions, setSelectedProductOptions] = useState<
-    { name: string; value: string }[]
-  >(variants[0].selectedOptions);
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+  const currentSearchParams = new URLSearchParams(searchParams)
+
+  const size = searchParams.get(SIZE_VARIANT) ?? variants[0].selectedOptions[0].value
+  const color = searchParams.get(COLOR_VARIANT) ?? variants[0].selectedOptions[1].value
+
+  const selectedProductOptions = [
+    { name: SIZE_VARIANT, value: size },
+    { name: COLOR_VARIANT, value: color }
+  ]
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const newSelectedVariant = [...selectedProductOptions];
-    const index = newSelectedVariant.findIndex(
-      (variant) => variant.name === name
-    );
-    newSelectedVariant[index].value = value;
-    setSelectedProductOptions(newSelectedVariant);
+    currentSearchParams.set(name,value)
+    router.push(pathname+"?"+currentSearchParams.toString())
   };
 
 
