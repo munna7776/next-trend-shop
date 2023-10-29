@@ -1,13 +1,10 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ShopifyProductVariant } from "@/libs/shopify/type";
 import { moneyFormatter } from "@/libs/utils";
 import ProductBuyButton from "./ProductBuyButton";
-
-const SIZE_VARIANT = "Size"
-const COLOR_VARIANT = "Color"
 
 const ProductVariants = ({
   options,
@@ -16,38 +13,38 @@ const ProductVariants = ({
   options: { name: string; values: string[] }[];
   variants: ShopifyProductVariant[];
 }) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const currentSearchParams = new URLSearchParams(searchParams);
 
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const router = useRouter()
-  const currentSearchParams = new URLSearchParams(searchParams)
-
-  const size = searchParams.get(SIZE_VARIANT) ?? variants[0].selectedOptions[0].value
-  const color = searchParams.get(COLOR_VARIANT) ?? variants[0].selectedOptions[1].value
-
-  const selectedProductOptions = [
-    { name: SIZE_VARIANT, value: size },
-    { name: COLOR_VARIANT, value: color }
-  ]
+  const selectedVariant = variants.find((variant) =>
+    variant.selectedOptions.every(
+      (option) => option.value === searchParams.get(option.name)
+    )
+  );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    currentSearchParams.set(name,value)
-    router.push(pathname+"?"+currentSearchParams.toString())
+    currentSearchParams.set(name, value);
+    router.push(pathname + "?" + currentSearchParams.toString());
   };
 
-
-  const title = selectedProductOptions.map(variant => variant.value).join(" / ")
-  const selectedVariants = variants.find(variant => variant.title === title)!
-  const selectedVariantPrice = moneyFormatter(selectedVariants?.price.currencyCode,selectedVariants?.price.amount)
+  const selectedVariants = variants.find((variant) => variant.id === (selectedVariant?.id || variants[0].id))!;
+  const selectedVariantPrice = moneyFormatter(
+    selectedVariants.price.currencyCode,
+    selectedVariants?.price.amount
+  );
   const has_only_default_variant = options[0].name === "Title";
-  
+
   return (
     <>
-       <p className="mt-6 text-xl text-[#212323] font-semibold">{selectedVariantPrice}</p>
-        <p className="text-[15px] text-[#4d4f4f] mb-6 ">
-          Free Shipping, Return within 7 days
-        </p> 
+      <p className="mt-6 text-xl text-[#212323] font-semibold">
+        {selectedVariantPrice}
+      </p>
+      <p className="text-[15px] text-[#4d4f4f] mb-6 ">
+        Free Shipping, Return within 7 days
+      </p>
       {!has_only_default_variant ? (
         <div className="flex flex-col gap-2">
           {options.map((option, optionIndex) => {
@@ -66,7 +63,9 @@ const ProductVariants = ({
                         className="hidden variant-option"
                         name={option.name}
                         id={value}
-                        checked={selectedProductOptions[optionIndex].value === value}
+                        checked={
+                          searchParams.get(option.name) === value
+                        }
                       />
                       <label
                         className="rounded-md py-2 px-4 font-light cursor-pointer bg-[#f5f6f9] inline-block"
@@ -82,7 +81,7 @@ const ProductVariants = ({
           })}
         </div>
       ) : null}
-      <ProductBuyButton variantId={selectedVariants.id} />
+      <ProductBuyButton variantId={selectedVariant?.id || variants[0].id} />
     </>
   );
 };

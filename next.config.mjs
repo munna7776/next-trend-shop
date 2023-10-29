@@ -12,9 +12,6 @@ const nextConfig = {
                 port: ''
             }
         ]
-    },
-    experimental: {
-        serverActions: true
     }
 }
 
